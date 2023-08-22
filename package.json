@@ -24,8 +24,8 @@
     "lint": "eslint --fix --ext .ts,.tsx ./src"
   },
   "lint-staged": {
-    "**/*.{js,jsx,ts,tsx}": [
-      "npm run lint"
+    "*.{ts,tsx,js,jsx}": [
+      "yarn lint"
     ]
   },
   "eslintConfig": {
@@ -47,6 +47,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
     "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.1",
     "eslint": "^8.47.0",
@@ -55,6 +57,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "prettier": "^3.0.2"
   }
 }
