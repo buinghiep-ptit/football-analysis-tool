@@ -9,7 +9,8 @@
   },
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -19,7 +20,7 @@
   ],
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
-    // Define your custom ESLint rules here, if needed.
+    "no-undef": "off"
   },
   "settings": {
     "react": {
