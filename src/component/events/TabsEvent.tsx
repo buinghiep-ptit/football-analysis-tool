@@ -13,8 +13,9 @@ const TabsEvent = () => {
       }}
     >
       <div
-        className=" cursor-pointer text-base font-semibold"
+        className="flex flex-col cursor-pointer text-base font-semibold"
         onMouseDown={() => setCurrentTab(1)}
+        style={{ gap: `${16 * scale}px` }}
       >
         <span
           className={`${currentTab === 1 ? 'text-blue-5' : 'text-neutral-5'}`}
@@ -26,12 +27,12 @@ const TabsEvent = () => {
           className={`h-[2px] ${
             currentTab === 1 ? 'bg-blue-5' : 'bg-neutral-5'
           } w-full`}
-          style={{ marginTop: `${18 * scale}px` }}
         ></div>
       </div>
       <div
-        className=" cursor-pointer text-base font-semibold"
+        className="flex flex-col cursor-pointer text-base font-semibold"
         onMouseDown={() => setCurrentTab(2)}
+        style={{ gap: `${16 * scale}px` }}
       >
         <span
           className={`${currentTab === 2 ? 'text-blue-5' : 'text-neutral-5'}`}
@@ -43,7 +44,6 @@ const TabsEvent = () => {
           className={`h-[2px] ${
             currentTab === 2 ? 'bg-blue-5' : 'bg-neutral-5'
           } w-full`}
-          style={{ marginTop: `${18 * scale}px` }}
         ></div>
       </div>
     </div>

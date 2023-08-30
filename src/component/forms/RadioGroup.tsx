@@ -38,7 +38,7 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
             {options.map(option => (
               <label
                 key={option.value}
-                className={`flex items-center `}
+                className={`flex items-center cursor-pointer`}
                 style={{ paddingBottom: `${12 * scale}px` }}
               >
                 <input
@@ -48,7 +48,7 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
                   checked={field.value === option.value}
                   onChange={e => field.onChange(e.target.value)}
                   className="radio"
-                  style={{ width: 16.67 * scale, height: 16.67 * scale }}
+                  style={{ transform: `scale(${scale})` }}
                 />
                 <span
                   className="ml-2 text-neutral-0 pt-[2px]"

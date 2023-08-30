@@ -104,7 +104,7 @@ function App() {
                   </div>
                 </div>
 
-                <div className="bg-neutral-8 overflow-hidden">
+                <div className="bg-neutral-8 overflow-hidden flex-grow">
                   <div className="flex flex-col h-[100%]">
                     <Properties />
                   </div>
@@ -133,6 +133,7 @@ function App() {
                   style={{
                     fontSize: `${16 * scale}px`,
                     width: `${96 * scale}px`,
+                    padding: `${12 * scale}px ${16 * scale}px`,
                   }}
                 >
                   Hủy
@@ -157,6 +158,7 @@ function App() {
                   style={{
                     fontSize: `${16 * scale}px`,
                     width: `${132 * scale}px`,
+                    padding: `${12 * scale}px ${16 * scale}px`,
                   }}
                 >
                   Để sau
@@ -181,6 +183,7 @@ function App() {
                   style={{
                     fontSize: `${16 * scale}px`,
                     width: `${132 * scale}px`,
+                    padding: `${12 * scale}px ${16 * scale}px`,
                   }}
                 >
                   Hoàn thành
