@@ -3,14 +3,13 @@ import React from 'react'
 import { useScale } from 'store'
 
 const passtype = [
-  { value: '1', name: 'Drop kick' },
-  { value: '2', name: 'Drop kick' },
-  { value: '3', name: 'Drop kick' },
-  { value: '4', name: 'Drop kick' },
-  { value: '5', name: 'Drop kick' },
-  { value: '6', name: 'Drop kick' },
-  { value: '7', name: 'Drop kick' },
-  { value: '8', name: 'Drop kick' },
+  { value: '1', name: 'Corner' },
+  { value: '2', name: 'Free kick' },
+  { value: '3', name: 'Goal kick' },
+  { value: '4', name: 'Interception' },
+  { value: '5', name: 'Kick off' },
+  { value: '6', name: 'Recovery' },
+  { value: '7', name: 'Throw-in' },
 ]
 
 export const PassType = () => {

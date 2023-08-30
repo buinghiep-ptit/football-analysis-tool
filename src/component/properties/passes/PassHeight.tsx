@@ -3,10 +3,9 @@ import React from 'react'
 import { useScale } from 'store'
 
 const passheight = [
-  { value: '1', name: 'Drop 1' },
-  { value: '2', name: 'Drop 2' },
-  { value: '3', name: 'Drop 3' },
-  { value: '4', name: 'Drop 4' },
+  { value: '1', name: 'Ground pass' },
+  { value: '2', name: 'Low pass' },
+  { value: '3', name: 'High pass' },
 ]
 
 export const PassHeight = () => {

@@ -16,11 +16,8 @@ export const Pass = () => {
   const scale = useScale(state => state.scale)
 
   return (
-    <div className="relative">
-      <div
-        className="flex flex-row"
-        style={{ margin: `${16 * scale}px`, gap: `${62 * scale}px` }}
-      >
+    <div className="overflow-auto" style={{ margin: `${16 * scale}px` }}>
+      <div className="flex flex-row" style={{ gap: `${62 * scale}px` }}>
         <div className="w-[54.21%] ">
           <div className="flex flex-col" style={{ gap: `${16 * scale}px` }}>
             <TimeRow />

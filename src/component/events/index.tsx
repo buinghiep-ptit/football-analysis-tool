@@ -5,7 +5,7 @@ import ButtonsEvent from './ButtonsEvent'
 export const Events = () => {
   return (
     <div className="bg-neutral-8 overflow-hidden">
-      <div className="flex flex-col gap-0 h-[100%]">
+      <div className="flex flex-col h-[100%]">
         <TabsEvent />
         <ButtonsEvent />
       </div>

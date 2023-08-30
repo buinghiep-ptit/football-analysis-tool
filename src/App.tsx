@@ -99,8 +99,11 @@ function App() {
                     <CoordinatesPlayer />
                   </div>
                 </div>
-                <div className="flex-grow bg-neutral-8 overflow-auto">
-                  <Properties />
+
+                <div className="bg-neutral-8 overflow-hidden">
+                  <div className="flex flex-col h-[100%]">
+                    <Properties />
+                  </div>
                 </div>
               </div>
             </div>

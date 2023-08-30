@@ -3,11 +3,11 @@ import React from 'react'
 import { useScale } from 'store'
 
 const outcome = [
-  { value: '1', name: 'Drop kick' },
-  { value: '2', name: 'Drop kick' },
-  { value: '3', name: 'Drop kick' },
-  { value: '4', name: 'Drop kick' },
-  { value: '5', name: 'Drop kick' },
+  { value: '1', name: 'Incomplete' },
+  { value: '2', name: 'Out' },
+  { value: '3', name: 'Pass offside' },
+  { value: '4', name: 'Unknow' },
+  { value: '5', name: 'Injuri clearance' },
 ]
 
 export const Outcome = () => {

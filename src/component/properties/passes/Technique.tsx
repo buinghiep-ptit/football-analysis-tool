@@ -3,10 +3,10 @@ import React from 'react'
 import { useScale } from 'store'
 
 const tech = [
-  { value: '1', name: 'Drop 1' },
-  { value: '2', name: 'Drop 2' },
-  { value: '3', name: 'Drop 3' },
-  { value: '4', name: 'Drop 4' },
+  { value: '1', name: 'Inswinging' },
+  { value: '2', name: 'Outswinging' },
+  { value: '3', name: 'Incomplete' },
+  { value: '4', name: 'Through ball' },
 ]
 
 export const Technique = () => {
