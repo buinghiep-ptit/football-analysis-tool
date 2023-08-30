@@ -33,7 +33,7 @@ export const Pass = () => {
             </div>
           </div>
         </div>
-        <div className="flex-grow">
+        <div className="w-[39.9%]">
           {/* <div className="flex flex-col" style={{ gap: `${8 * scale}px` }}> */}
           <Technique />
           <PassHeight />

@@ -28,32 +28,35 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
         defaultValue=""
         render={({ field }) => (
           <div
-            className={`grid grid-cols-${col} 
-            } w-[100%] items-center justify-between`}
+            className={`items-center justify-between`}
+            style={{
+              display: 'grid',
+              gridTemplateColumns: `repeat(${col}, 1fr)`,
+              gridAutoFlow: 'row',
+            }}
           >
             {options.map(option => (
-              <div key={option.value} className="col-span-1 ">
-                <label
-                  className={`flex items-center `}
-                  style={{ paddingBottom: `${12 * scale}px` }}
+              <label
+                key={option.value}
+                className={`flex items-center `}
+                style={{ paddingBottom: `${12 * scale}px` }}
+              >
+                <input
+                  type="radio"
+                  {...field}
+                  value={option.value}
+                  checked={field.value === option.value}
+                  onChange={e => field.onChange(e.target.value)}
+                  className="radio"
+                  style={{ width: 16.67 * scale, height: 16.67 * scale }}
+                />
+                <span
+                  className="ml-2 text-neutral-0 pt-[2px]"
+                  style={{ fontSize: `${14 * scale}px` }}
                 >
-                  <input
-                    type="radio"
-                    {...field}
-                    value={option.value}
-                    checked={field.value === option.value}
-                    onChange={e => field.onChange(e.target.value)}
-                    className="radio"
-                    style={{ width: 16.67 * scale, height: 16.67 * scale }}
-                  />
-                  <span
-                    className="ml-2 text-neutral-0 pt-[2px]"
-                    style={{ fontSize: `${14 * scale}px` }}
-                  >
-                    {option.name}
-                  </span>
-                </label>
-              </div>
+                  {option.name}
+                </span>
+              </label>
             ))}
           </div>
         )}
