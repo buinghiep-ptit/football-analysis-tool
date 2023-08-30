@@ -21,7 +21,7 @@
 
 @layer components {
   .btn {
-    @apply border-2 border-primary px-4 py-2 rounded uppercase text-xl font-semibold cursor-pointer md:hover:bg-primary md:hover:text-white;
+    @apply px-4 py-3 rounded-[8px] bg-neutral-9 font-semibold cursor-pointer hover:bg-blue-5 text-neutral-0;
   }
 
   .switch {

@@ -2,14 +2,11 @@ import { RadioGroup } from 'component/forms/RadioGroup'
 import React from 'react'
 import { useScale } from 'store'
 
-const bodypass1 = [
+const bodypass = [
   { value: '1', name: 'Drop kick' },
   { value: '2', name: 'Drop kick' },
   { value: '3', name: 'Drop kick' },
   { value: '4', name: 'Drop kick' },
-]
-
-const bodypass2 = [
   { value: '5', name: 'Drop kick' },
   { value: '6', name: 'Drop kick' },
   { value: '7', name: 'Drop kick' },
@@ -31,8 +28,7 @@ export const BodyPass = () => {
         className="w-[100%] flex flex-col"
         style={{ gap: `${16 * scale}px` }}
       >
-        <RadioGroup name="bodypass1" options={bodypass1} />
-        <RadioGroup name="bodypass2" options={bodypass2} />
+        <RadioGroup name="bodypass" options={bodypass} />
       </div>
     </div>
   )

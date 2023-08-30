@@ -8,9 +8,10 @@ export interface IRadioGroupProps {
     value: string
     name: string
   }[]
+  col?: number
 }
 
-export function RadioGroup({ name, options }: IRadioGroupProps) {
+export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
   const {
     control,
     formState: { errors },
@@ -26,9 +27,16 @@ export function RadioGroup({ name, options }: IRadioGroupProps) {
         name={name}
         defaultValue=""
         render={({ field }) => (
-          <div className="flex w-[100%] items-center justify-between">
+          <div
+            className={`grid grid-cols-${col} 
+            } w-[100%] items-center justify-between`}
+          >
             {options.map(option => (
-              <label key={option.value} className="flex items-center">
+              <label
+                key={option.value}
+                className={`col-span-1 flex items-center `}
+                style={{ paddingBottom: `${12 * scale}px` }}
+              >
                 <input
                   type="radio"
                   {...field}
