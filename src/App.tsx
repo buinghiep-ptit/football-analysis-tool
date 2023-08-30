@@ -17,6 +17,10 @@ function App() {
   const scale = useScale(state => state.scale)
   const updateScale = useScale(state => state.updateScale)
   React.useEffect(() => {
+    const container = document.getElementById('container') as any
+
+    const isTall = container.clientWidth / container.clientHeight < ASPECT_RATIO
+    setIsTall(isTall)
     if (viewportRef.current) {
       updateScale(viewportRef.current.offsetWidth / 1920)
     }
