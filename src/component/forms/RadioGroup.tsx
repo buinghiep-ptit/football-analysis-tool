@@ -11,7 +11,7 @@ export interface IRadioGroupProps {
   col?: number
 }
 
-export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
+export function RadioGroup({ name, options }: IRadioGroupProps) {
   const {
     control,
     formState: { errors },
@@ -28,13 +28,14 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
         defaultValue=""
         render={({ field }) => (
           <div
-            className={`grid grid-cols-${col} 
-            } w-[100%] items-center justify-between`}
+            // className={`flex
+            // }`}
+            style={{ display: 'grid', gridTemplateColumns: 'auto auto auto' }}
           >
             {options.map(option => (
               <label
                 key={option.value}
-                className={`col-span-1 flex items-center `}
+                className={`flex flex-row items-center `}
                 style={{ paddingBottom: `${12 * scale}px` }}
               >
                 <input

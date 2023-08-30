@@ -18,7 +18,7 @@ export const Pass = () => {
   return (
     <div className="overflow-auto" style={{ margin: `${16 * scale}px` }}>
       <div className="flex flex-row" style={{ gap: `${62 * scale}px` }}>
-        <div className="w-[54.21%] ">
+        <div className="w-[54.21%]">
           <div className="flex flex-col" style={{ gap: `${16 * scale}px` }}>
             <TimeRow />
             <Team />
@@ -34,11 +34,11 @@ export const Pass = () => {
           </div>
         </div>
         <div className="flex-grow">
-          <div className="flex flex-col" style={{ gap: `${8 * scale}px` }}>
-            <Technique />
-            <PassHeight />
-            <Outcome />
-          </div>
+          {/* <div className="flex flex-col" style={{ gap: `${8 * scale}px` }}> */}
+          <Technique />
+          <PassHeight />
+          <Outcome />
+          {/* </div> */}
         </div>
       </div>
     </div>
