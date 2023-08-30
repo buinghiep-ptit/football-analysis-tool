@@ -1,5 +1,9 @@
-import React from 'react'
+import { Pass } from './passes'
 
 export const Properties = () => {
-  return <div>Properties</div>
+  return (
+    <div>
+      <Pass />
+    </div>
+  )
 }

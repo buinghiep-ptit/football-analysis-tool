@@ -71,8 +71,8 @@ const CoordinatesPlayer = () => {
           <div
             className="mouse-coordinates"
             style={{
-              left: mousePosition.x - 14,
-              top: mousePosition.y - 10,
+              left: mousePosition.x - 22 * scale,
+              top: mousePosition.y - 8 * scale,
               fontSize: `${scale * 12}px`,
             }}
           >
@@ -85,8 +85,8 @@ const CoordinatesPlayer = () => {
             key={index}
             className="mouse-coordinates"
             style={{
-              left: c.x - 14,
-              top: c.y - 10,
+              left: c.x - 22 * scale,
+              top: c.y - 8 * scale,
               fontSize: `${scale * 12}px`,
             }}
           >

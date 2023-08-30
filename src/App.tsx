@@ -5,6 +5,7 @@ import { Events } from 'component/events'
 import LineUp from 'component/lineup/LineUp'
 import CoordinatesPlayer from 'component/lineup/CoordinatesPlayer'
 import { useScale } from 'store'
+import { Properties } from 'component/properties'
 
 const ASPECT_RATIO = 1872 / 946
 
@@ -73,13 +74,8 @@ function App() {
                 <CoordinatesPlayer />
               </div>
             </div>
-            <div className="flex-grow bg-neutral-8">
-              <div
-                className="bg-neutral-0"
-                style={{ margin: `${16 * scale}px` }}
-              >
-                a
-              </div>
+            <div className="flex-grow bg-neutral-8 overflow-auto">
+              <Properties />
             </div>
           </div>
         </div>
