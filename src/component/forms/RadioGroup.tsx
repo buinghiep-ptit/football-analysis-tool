@@ -11,7 +11,7 @@ export interface IRadioGroupProps {
   col?: number
 }
 
-export function RadioGroup({ name, options }: IRadioGroupProps) {
+export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
   const {
     control,
     formState: { errors },
@@ -28,32 +28,32 @@ export function RadioGroup({ name, options }: IRadioGroupProps) {
         defaultValue=""
         render={({ field }) => (
           <div
-            // className={`flex
-            // }`}
-            style={{ display: 'grid', gridTemplateColumns: 'auto auto auto' }}
+            className={`grid grid-cols-${col} 
+            } w-[100%] items-center justify-between`}
           >
             {options.map(option => (
-              <label
-                key={option.value}
-                className={`flex flex-row items-center `}
-                style={{ paddingBottom: `${12 * scale}px` }}
-              >
-                <input
-                  type="radio"
-                  {...field}
-                  value={option.value}
-                  checked={field.value === option.value}
-                  onChange={e => field.onChange(e.target.value)}
-                  className="radio"
-                  style={{ width: 16.67 * scale, height: 16.67 * scale }}
-                />
-                <span
-                  className="ml-2 text-neutral-0 pt-[2px]"
-                  style={{ fontSize: `${14 * scale}px` }}
+              <div key={option.value} className="col-span-1 ">
+                <label
+                  className={`flex items-center `}
+                  style={{ paddingBottom: `${12 * scale}px` }}
                 >
-                  {option.name}
-                </span>
-              </label>
+                  <input
+                    type="radio"
+                    {...field}
+                    value={option.value}
+                    checked={field.value === option.value}
+                    onChange={e => field.onChange(e.target.value)}
+                    className="radio"
+                    style={{ width: 16.67 * scale, height: 16.67 * scale }}
+                  />
+                  <span
+                    className="ml-2 text-neutral-0 pt-[2px]"
+                    style={{ fontSize: `${14 * scale}px` }}
+                  >
+                    {option.name}
+                  </span>
+                </label>
+              </div>
             ))}
           </div>
         )}
