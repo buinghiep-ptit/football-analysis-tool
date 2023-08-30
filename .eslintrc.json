@@ -20,7 +20,9 @@
   ],
   "plugins": ["react", "react-hooks", "@typescript-eslint"],
   "rules": {
-    "no-undef": "off"
+    "react/react-in-jsx-scope": "off",
+    "no-undef": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   },
   "settings": {
     "react": {
