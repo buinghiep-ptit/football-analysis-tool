@@ -1,4 +1,3 @@
-import { FilterNone } from '@mui/icons-material'
 import {
   Icon,
   IconButton,
@@ -17,8 +16,8 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { Box } from '@mui/system'
-import * as React from 'react'
 import { TableColumn } from 'models/common'
+import * as React from 'react'
 import { useScale } from 'store'
 
 export const StyledTableRow = styled(TableRow)`
@@ -373,7 +372,7 @@ export default function MuiTable<T extends Record<string, any>>({
             textAlign="center"
           >
             <Stack flexDirection={'row'} gap={1}>
-              <FilterNone />
+              {/* <FilterNone /> */}
               <Typography>{error ? error.message : 'No data'}</Typography>
             </Stack>
           </Box>
