@@ -1,15 +1,18 @@
-import { RadioGroup } from 'component/forms/RadioGroup'
+import { RadioGroup } from 'components/forms/RadioGroup'
 import React from 'react'
 import { useScale } from 'store'
 
-const tech = [
-  { value: '1', name: 'Inswinging' },
-  { value: '2', name: 'Outswinging' },
-  { value: '3', name: 'Incomplete' },
-  { value: '4', name: 'Through ball' },
+const passtype = [
+  { value: '1', name: 'Corner' },
+  { value: '2', name: 'Free kick' },
+  { value: '3', name: 'Goal kick' },
+  { value: '4', name: 'Interception' },
+  { value: '5', name: 'Kick off' },
+  { value: '6', name: 'Recovery' },
+  { value: '7', name: 'Throw-in' },
 ]
 
-export const Technique = () => {
+export const PassType = () => {
   const scale = useScale(state => state.scale)
 
   return (
@@ -18,13 +21,13 @@ export const Technique = () => {
         className=" text-neutral-5 font-semibold"
         style={{ fontSize: `${14 * scale}px` }}
       >
-        Technique:
+        Pass type:
       </span>
       <div
         className="w-[100%] flex flex-col"
         style={{ gap: `${16 * scale}px` }}
       >
-        <RadioGroup name="technique" options={tech} col={2} />
+        <RadioGroup name="passtype" options={passtype} />
       </div>
     </div>
   )

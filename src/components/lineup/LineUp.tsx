@@ -144,7 +144,7 @@ const LineUp = ({ logo }: { logo: string }) => {
   }
 
   return (
-    <div className="">
+    <div className="flex-1">
       <div
         className="flex flex-row justify-center items-center bg-neutral-8"
         style={{

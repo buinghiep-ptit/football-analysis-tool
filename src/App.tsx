@@ -1,9 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Events } from 'component/events'
-import CoordinatesPlayer from 'component/lineup/CoordinatesPlayer'
-import LineUp from 'component/lineup/LineUp'
-import { Player } from 'component/player'
-import { Properties } from 'component/properties'
+import { Events } from 'components/events'
+import CoordinatesPlayer from 'components/lineup/CoordinatesPlayer'
+import LineUp from 'components/lineup/LineUp'
+import { Player } from 'components/player'
+import { Properties } from 'components/properties'
 import * as React from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useScale } from 'store'
@@ -80,7 +80,7 @@ function App() {
               isTall ? 'w-[100%] h-[auto]' : 'w-[auto] h-[100%]'
             }`}
           >
-            <div className="flex h-[100%]" style={{ gap: `${20 * scale}px` }}>
+            <div className="flex h-[100%]">
               <div
                 className="flex flex-col w-[42.735%] h-[100%]"
                 style={{ gap: `${24 * scale}px` }}
@@ -88,7 +88,10 @@ function App() {
                 <Player />
                 <Events />
               </div>
-              <div className="flex flex-col w-[57.265%] h-[100%] gap-1">
+              <div
+                className="flex flex-col w-[57.265%] h-[100%] gap-1"
+                style={{ paddingLeft: `${20 * scale}px` }}
+              >
                 <div
                   className="flex flex-row  bg-neutral-8"
                   style={{ paddingBottom: `${20 * scale}px` }}

@@ -1,4 +1,4 @@
-import { RadioGroup } from 'component/forms/RadioGroup'
+import { RadioGroup } from 'components/forms/RadioGroup'
 import React from 'react'
 import { useScale } from 'store'
 

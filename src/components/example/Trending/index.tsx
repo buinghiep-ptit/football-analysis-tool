@@ -5,8 +5,8 @@ import { moviesData } from './moviesData'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
-import { RadioButtons } from 'component/forms/RadioButtons'
-import { SwitchButton } from 'component/forms/SwitchButton'
+import { RadioButtons } from 'components/forms/RadioButtons'
+import { SwitchButton } from 'components/forms/SwitchButton'
 
 const Index = () => {
   const validationSchema = yup.object().shape({})

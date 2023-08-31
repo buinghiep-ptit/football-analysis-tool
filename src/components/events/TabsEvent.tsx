@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
 import { useScale } from 'store'
 
-const TabsEvent = () => {
-  const [currentTab, setCurrentTab] = useState(1)
+interface IProps {
+  currentTab: number
+  setCurrentTab: (x: number) => void
+}
+
+const TabsEvent = ({ currentTab, setCurrentTab }: IProps) => {
   const scale = useScale(state => state.scale)
 
   return (

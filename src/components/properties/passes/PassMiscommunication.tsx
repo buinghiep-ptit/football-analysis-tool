@@ -1,4 +1,4 @@
-import { RHFSwitch } from 'component/forms/RHFSwitch'
+import { RHFSwitch } from 'components/forms/RHFSwitch'
 import { useScale } from 'store'
 
 export const PassMiscommunication = () => {

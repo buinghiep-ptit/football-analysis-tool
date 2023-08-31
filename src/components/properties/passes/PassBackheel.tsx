@@ -1,7 +1,7 @@
-import { RHFSwitch } from 'component/forms/RHFSwitch'
+import { RHFSwitch } from 'components/forms/RHFSwitch'
 import { useScale } from 'store'
 
-export const PassDeflected = () => {
+export const PassBackheel = () => {
   const scale = useScale(state => state.scale)
 
   return (
@@ -13,10 +13,10 @@ export const PassDeflected = () => {
         className="w-[75%] text-neutral-5 font-semibold"
         style={{ fontSize: `${14 * scale}px` }}
       >
-        Pass deflected:
+        Pass backheel:
       </span>
       <div className="flex-grow">
-        <RHFSwitch name="passdeflected" />
+        <RHFSwitch name="passbackheel" />
       </div>
     </div>
   )
