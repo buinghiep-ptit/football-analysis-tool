@@ -1,14 +1,14 @@
-import * as React from 'react'
-import { Player } from 'component/player'
-import './App.css'
-import { Events } from 'component/events'
-import LineUp from 'component/lineup/LineUp'
-import CoordinatesPlayer from 'component/lineup/CoordinatesPlayer'
-import { useScale } from 'store'
-import { Properties } from 'component/properties'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Events } from 'component/events'
+import CoordinatesPlayer from 'component/lineup/CoordinatesPlayer'
+import LineUp from 'component/lineup/LineUp'
+import { Player } from 'component/player'
+import { Properties } from 'component/properties'
+import * as React from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { useScale } from 'store'
 import * as yup from 'yup'
+import './App.css'
 const ASPECT_RATIO = 1872 / 946
 
 function App() {
@@ -95,8 +95,8 @@ function App() {
                 >
                   <div className="w-[52.25%]">
                     <div className="flex flex-row bg-neutral-9">
-                      <LineUp />
-                      <LineUp />
+                      <LineUp logo="/assets/images/logo-club-1.svg" />
+                      <LineUp logo="/assets/images/logo-club-2.svg" />
                     </div>
                   </div>
                   <div className="w-[47.75%]">

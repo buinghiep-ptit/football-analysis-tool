@@ -18,7 +18,7 @@ export const Button = ({
 
   return (
     <div
-      className={`flex hover:bg-neutral-0 flex-col cursor-pointer items-center justify-center rounded-lg ${
+      className={`flex hover:bg-neutral-0 transition-all duration-500 flex-col cursor-pointer items-center justify-center rounded-lg ${
         activeIndex === index ? 'bg-neutral-0' : 'bg-neutral-9'
       }`}
       style={{

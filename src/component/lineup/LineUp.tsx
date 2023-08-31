@@ -29,7 +29,7 @@ const Item = ({
         top: `${top}`,
       }}
     >
-      <div className="flex flex-col items-center translate-x-[-50%] translate-y-[-2px] gap-[4px]">
+      <div className="flex flex-col items-center translate-x-[-50%] translate-y-[-2px] gap-[4px] ">
         <img
           src={
             activeIdx === playerIdx ? '/assets/images/shirt-yellow.png' : imgUrl
@@ -135,7 +135,7 @@ const listPlayer = [
   },
 ]
 
-const LineUp = () => {
+const LineUp = ({ logo }: { logo: string }) => {
   const [activePlayer, setActivePlayer] = useState(-1)
   const scale = useScale(state => state.scale)
 
@@ -169,6 +169,12 @@ const LineUp = () => {
       </div>
       <div className="flex-1 relative">
         <img src="/assets/images/lineup-bg.png" width={'100%'} alt="" />
+        <img
+          src={logo}
+          width={28 * scale}
+          height={28 * scale}
+          style={{ position: 'absolute', top: 12 * scale, left: 12 * scale }}
+        />
         {listPlayer.map((p, index) => (
           <div key={index} onMouseDown={() => handleMouseDown(index)}>
             <Item
