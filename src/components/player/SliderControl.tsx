@@ -1,5 +1,3 @@
-import Duration from './Duration'
-
 export interface ISliderControlProps {
   onMouseDown: (e?: any) => void
   onChange: (e?: any) => void
@@ -34,16 +32,17 @@ export function SliderControl({
         }}
       />
       <div className="mt-[2px] relative">
-        <div className="flex text-[14px] flex-row justify-between items-center mr-[-10px] ml-[-14px]">
-          <Duration size={14} seconds={0} />
-          <Duration size={14} seconds={duration} />
+        <div className="flex flex-row justify-between items-center mr-[-10px] ml-[-14px]">
+          {/* <Duration size={14} seconds={0} />
+          <Duration size={14} seconds={duration} /> */}
+          {/* <span className=" text-[14px]">a</span> */}
         </div>
-        <div
+        {/* <div
           className="absolute top-0 bottom-0 h-full text-right"
           style={{ left: `calc(${(value * 100) / duration}% - 8px)` }}
         >
           <Duration size={16} seconds={value} />
-        </div>
+        </div> */}
       </div>
     </div>
   )

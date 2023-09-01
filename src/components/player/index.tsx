@@ -15,7 +15,10 @@ export const Player = () => {
         className="flex justify-center items-center"
         style={{ padding: `${14 * scale}px 0`, gap: `${24 * scale}px` }}
       >
-        <div className="flex flex-row items-center gap-3">
+        <div
+          className="flex flex-row items-center"
+          style={{ gap: `${12 * scale}px` }}
+        >
           <img
             src="/assets/images/logo-club-1.svg"
             width={40 * scale}
@@ -35,7 +38,10 @@ export const Player = () => {
           height={14 * scale}
           alt=""
         />
-        <div className="flex flex-row items-center gap-3">
+        <div
+          className="flex flex-row items-center"
+          style={{ gap: `${12 * scale}px` }}
+        >
           <span
             className=" text-neutral-0"
             style={{ fontSize: `${16 * scale}px` }}

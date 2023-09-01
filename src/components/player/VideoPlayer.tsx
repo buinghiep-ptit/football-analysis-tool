@@ -1,6 +1,7 @@
 import * as React from 'react'
 import ReactPlayer from 'react-player'
-import { SliderControl } from './SliderControl'
+import { SliderTimeControl } from './SliderTimeControl'
+import Duration from './Duration'
 import { useScale } from 'store'
 
 export interface IVideoPlayerProps {
@@ -8,8 +9,6 @@ export interface IVideoPlayerProps {
 }
 
 export function VideoPlayer({ url }: IVideoPlayerProps) {
-  const scale = useScale(state => state.scale)
-
   const [state, setState] = React.useState({
     url: null,
     pip: false,
@@ -42,6 +41,9 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
         (e.target.value / state.duration) as unknown as string,
       ),
     }))
+    playerRef.current.seekTo(
+      parseFloat((e.target.value / state.duration) as unknown as string),
+    )
   }
 
   const handleSeekMouseUp = (e: any) => {
@@ -64,8 +66,10 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
     setState(prev => ({ ...prev, duration }))
   }
 
+  const scale = useScale(state => state.scale)
+
   return (
-    <>
+    <div className="relative">
       <div className="pt-[56.25%] relative">
         <ReactPlayer
           key={1}
@@ -90,15 +94,52 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
           //   onSeek={e => console.log('onSeek', e)}
         />
       </div>
-      <div style={{ padding: `0 ${40 * scale}px` }}>
-        <SliderControl
+
+      <SliderTimeControl
+        onChange={handleSeekChange}
+        onMouseDown={handleSeekMouseDown}
+        onMouseUp={handleSeekMouseUp}
+        value={state.played * state.duration}
+        duration={state.duration}
+      />
+
+      <div
+        className="relative"
+        style={{
+          zIndex: 0,
+          margin: `${24 * scale}px ${40 * scale}px ${16 * scale}px ${
+            40 * scale
+          }px`,
+          padding: `${14 * scale}px 0`,
+        }}
+      >
+        <div
+          className="absolute top-0 left-[-12px]"
+          style={{ left: `${-14 * scale}px` }}
+        >
+          <Duration size={14} seconds={0} />
+        </div>
+        <div className="absolute top-0" style={{ right: `${-14 * scale}px` }}>
+          <Duration size={14} seconds={state.duration} />
+        </div>
+        <div
+          className="absolute top-0 bottom-0 h-full text-right"
+          style={{
+            left: `calc(${
+              (state.played * state.duration * 100) / state.duration
+            }% - 8px)`,
+          }}
+        >
+          <Duration size={16} seconds={state.played * state.duration} />
+        </div>
+      </div>
+      {/* <SliderControl
           onChange={handleSeekChange}
           onMouseDown={handleSeekMouseDown}
           onMouseUp={handleSeekMouseUp}
           value={state.played * state.duration}
           duration={state.duration}
-        />
-      </div>
-    </>
+        /> */}
+    </div>
   )
 }

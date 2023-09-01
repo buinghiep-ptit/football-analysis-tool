@@ -5,14 +5,12 @@ export default function Duration({ size, seconds }: any) {
   const scale = useScale(state => state.scale)
 
   return (
-    <time dateTime={`P${Math.round(seconds)}S`}>
-      <span
-        className={`text-neutral-0`}
-        style={{ fontSize: `${size * scale}px` }}
-      >
-        {format(seconds)}
-      </span>
-    </time>
+    <span
+      className={`text-neutral-0 font-semibold`}
+      style={{ fontSize: `${size * scale}px` }}
+    >
+      {format(seconds)}
+    </span>
   )
 }
 
