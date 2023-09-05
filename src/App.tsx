@@ -4,12 +4,13 @@ import CoordinatesPlayer from 'components/lineup/CoordinatesPlayer'
 import LineUp from 'components/lineup/LineUp'
 import { Player } from 'components/player'
 import { Properties } from 'components/properties'
+import { lineUp1, lineUp2 } from 'data'
 import * as React from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import { useAppStore } from 'store'
 import * as yup from 'yup'
 import './App.css'
-import { lineUp1 } from 'data'
+import { IPlayer } from 'models'
 const ASPECT_RATIO = 1872 / 946
 
 export const SubmitButton = ({
@@ -111,7 +112,7 @@ function App() {
     console.log('values:', values)
   }
 
-  console.log(data)
+  console.log('player active:', data)
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
@@ -145,11 +146,23 @@ function App() {
                 >
                   <div className="w-[52.25%]">
                     <div className="flex flex-row bg-neutral-9">
-                      <div onMouseDown={() => updateData({ lineupPos: 1 })}>
-                        <LineUp lineUp={lineUp1} />
+                      <div onMouseDown={() => {}}>
+                        <LineUp
+                          lineUp={lineUp1}
+                          listActivePlayer={data?.listActivePlayer?.filter(
+                            (p: IPlayer) => p.teamId === lineUp1.teamId,
+                          )}
+                          updateData={updateData}
+                        />
                       </div>
-                      <div onMouseDown={() => updateData({ lineupPos: 2 })}>
-                        <LineUp lineUp={lineUp1} />
+                      <div onMouseDown={() => {}}>
+                        <LineUp
+                          lineUp={lineUp2}
+                          listActivePlayer={data?.listActivePlayer?.filter(
+                            (p: IPlayer) => p.teamId === lineUp2.teamId,
+                          )}
+                          updateData={updateData}
+                        />
                       </div>
                     </div>
                   </div>

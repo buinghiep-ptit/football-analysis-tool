@@ -1,43 +1,47 @@
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useAppStore } from 'store'
 
 const CoordinatesPlayer = () => {
-  const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 })
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const parentRef = useRef(null) as any
   const [parentWidth, setParentWidth] = useState(0)
   const [parentHeight, setParentHeight] = useState(0)
 
   const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
+  const updateData = useAppStore(state => state.updateData)
 
   const handleMouseMove = (event: any) => {
     if (parentRef.current) {
-      setParentWidth(parentRef.current.offsetWidth)
-      setParentHeight(parentRef.current.offsetHeight)
+      const pWidth = parentRef.current.offsetHeight
+      const pHeight = parentRef.current.offsetWidth
+      setParentWidth(pWidth)
+      setParentHeight(pHeight)
+      const divRect = event.currentTarget.getBoundingClientRect()
+      const x = event.clientX - divRect.left
+      const y = event.clientY - divRect.top
+
+      setMousePosition({ x, y })
     }
-    const divRect = event.currentTarget.getBoundingClientRect()
-
-    const x = event.clientX - divRect.left
-    const y = event.clientY - divRect.top
-
-    setMousePosition({ x, y })
   }
 
   const handleMouseDown = (event: any) => {
     if (parentRef.current) {
-      setParentWidth(parentRef.current.offsetWidth)
-      setParentHeight(parentRef.current.offsetHeight)
+      const pWidth = parentRef.current.offsetHeight
+      const pHeight = parentRef.current.offsetWidth
+      setParentWidth(pWidth)
+      setParentHeight(pHeight)
+      const divRect = event.currentTarget.getBoundingClientRect()
+      const x = event.clientX - divRect.left
+      const y = event.clientY - divRect.top
+
+      updateData({
+        startLocation: {
+          x: Math.round((x * 100) / pWidth),
+          y: Math.round((y * 100) / pHeight),
+        },
+      })
     }
-    const divRect = event.currentTarget.getBoundingClientRect()
-
-    const x = event.clientX - divRect.left
-    const y = event.clientY - divRect.top
-
-    const newCoordinate = { x, y }
-
-    setClickCoordinates(
-      newCoordinate, //prevCoordinates => [...prevCoordinates, newCoordinate] as any,
-    )
   }
 
   const handleMouseLeave = () => {
@@ -81,18 +85,18 @@ const CoordinatesPlayer = () => {
           </div>
         )}
         {/* {clickCoordinates.map((c: any, index) => ( */}
-        {clickCoordinates.x !== 0 && clickCoordinates.y !== 0 && (
+        {!!data?.startLocation?.x && !!data?.startLocation?.y && (
           <div
             // key={index}
             className="mouse-coordinates"
             style={{
-              left: clickCoordinates.x - 22 * scale,
-              top: clickCoordinates.y - 8 * scale,
+              left: (data?.startLocation?.x * parentWidth) / 100 - 22 * scale,
+              top: (data?.startLocation?.y * parentHeight) / 100 - 8 * scale,
               fontSize: `${scale * 12}px`,
             }}
           >
-            ({Math.round((clickCoordinates.x * 100) / parentWidth)},{' '}
-            {Math.round((clickCoordinates.y * 100) / parentHeight)})
+            ({Math.round(data?.startLocation?.x)},{' '}
+            {Math.round(data?.startLocation?.y)})
           </div>
         )}
 

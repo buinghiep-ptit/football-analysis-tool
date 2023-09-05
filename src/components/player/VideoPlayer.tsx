@@ -28,6 +28,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   const playerRef = React.useRef(null) as any
 
   const scale = useAppStore(state => state.scale)
+  const updateData = useAppStore(state => state.updateData)
 
   const handleSeekMouseDown = () => {
     setState(prev => ({
@@ -59,9 +60,9 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   }
 
   const handleProgress = (state: any) => {
-    if (!state.seeking) {
-      setState(prev => ({ ...prev, ...state }))
-    }
+    // if (!state.seeking) {
+    setState(prev => ({ ...prev, ...state }))
+    // }
   }
 
   const handleDuration = (duration: number) => {
@@ -79,6 +80,9 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
         if (player.paused) {
           player.play()
         } else {
+          updateData({
+            vidTime: playerRef.current.getInternalPlayer().currentTime,
+          })
           player.pause()
         }
       }

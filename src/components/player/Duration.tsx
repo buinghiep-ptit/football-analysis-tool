@@ -22,7 +22,7 @@ function format(seconds: number) {
   if (hh) {
     return `${hh}:${pad(mm)}:${ss}`
   }
-  return `${mm}:${ss}`
+  return `${pad(mm)}:${ss}`
 }
 
 function pad(string: number) {

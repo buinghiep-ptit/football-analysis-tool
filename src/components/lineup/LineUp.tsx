@@ -1,5 +1,4 @@
-import { IPlayer } from 'models'
-import { useState } from 'react'
+import { ILineUp, IPlayer } from 'models'
 import { useAppStore } from 'store'
 
 export interface ItemProps {
@@ -61,43 +60,27 @@ const Item = ({
 }
 
 export interface IProps {
-  lineUp?: {
-    logo?: string
-    pos?: number
-    teamName?: string
-    players: IPlayer[]
-  }
+  lineUp?: ILineUp
+  listActivePlayer?: IPlayer[]
+  updateData: (data: any) => void
 }
 
-const LineUp = ({ lineUp }: IProps) => {
+const LineUp = ({ lineUp, listActivePlayer, updateData }: IProps) => {
   const scale = useAppStore(state => state.scale)
-  const data = useAppStore(state => state.data)
-  // const updateData = useAppStore(state => state.updateData)
-  const [listActivePlayer, setListActivePlayer] = useState<number[]>(
-    data.listActivePlayer ?? [],
-  )
 
-  // useEffect(() => {
-  //   if (!data?.lineup) return
-  //   console.log(lineUp?.pos, data.lineupPos)
-  //   if (lineUp?.pos === data.lineupPos) {
-  //     setListActivePlayer(listActivePlayer.slice(-1))
-  //     updateData({
-  //       listActivePlayer: (data?.listActivePlayer ?? []).slice(-1),
-  //     })
-  //   } else {
-  //     setListActivePlayer([])
-  //     updateData({
-  //       listActivePlayer: [],
-  //     })
-  //   }
-  // }, [data.lineup])
-
-  const handleMouseDown = (idx: number) => {
-    setListActivePlayer(prev => [...prev.slice(-1), idx])
-    // updateData({
-    //   listActivePlayer: [...(data.listActivePlayer ?? []).slice(-1), idx],
-    // })
+  const handleMouseDown = (player: IPlayer) => {
+    const idx = listActivePlayer?.findIndex(p => p.id === player.id)
+    if (idx !== -1 && idx !== undefined) {
+      listActivePlayer?.splice(idx, 1)
+      updateData({
+        listActivePlayer: [...(listActivePlayer?.slice(-1) ?? [])],
+      })
+      return
+    }
+    updateData({
+      listActivePlayer: [...(listActivePlayer?.slice(-1) ?? []), player],
+      teamName: lineUp?.teamName,
+    })
   }
 
   return (
@@ -132,20 +115,26 @@ const LineUp = ({ lineUp }: IProps) => {
           height={28 * scale}
           style={{ position: 'absolute', top: 12 * scale, left: 12 * scale }}
         />
-        {lineUp?.players.map((p, index) => (
-          <div key={index} onMouseDown={() => handleMouseDown(index)}>
+        {lineUp?.players?.map((player, index) => (
+          <div key={index} onMouseDown={() => handleMouseDown(player)}>
             <Item
               scale={scale}
-              top={p?.top}
-              left={p?.left}
-              imgUrl={p?.imgUrl}
-              num={p?.jerseyNo}
-              name={p?.name}
+              top={player?.top}
+              left={player?.left}
+              imgUrl={player?.imgUrl}
+              num={player?.jerseyNo}
+              name={player?.name}
               isActive={
-                (listActivePlayer ?? []).findIndex((p: any) => p === index) !==
-                -1
+                !!listActivePlayer?.length &&
+                !!listActivePlayer
+                  ?.filter(p1 => p1.teamId === lineUp.teamId)
+                  .find(p2 => p2.id === player.id)
               }
-              isFirst={index === (listActivePlayer ?? [])[0]}
+              isFirst={
+                player.id ===
+                (listActivePlayer?.filter(p => p.teamId === lineUp.teamId) ??
+                  [])[0]?.id
+              }
             />
           </div>
         ))}

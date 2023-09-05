@@ -11,6 +11,8 @@ export interface IPlayer {
 
 export interface ILineUp {
   logo?: string
+  teamId?: number
+  teamName?: string
   pos?: number
-  players: IPlayer[]
+  players?: IPlayer[]
 }

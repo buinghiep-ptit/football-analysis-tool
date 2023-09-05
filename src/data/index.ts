@@ -1,15 +1,13 @@
 import { ILineUp } from 'models'
 
-export const uniqueId = () => {
-  return Math.floor(Math.random() * Date.now())
-}
-
 export const lineUp1: ILineUp = {
   logo: '/assets/images/logo-club-1.svg',
   pos: 1,
+  teamId: 1,
+  teamName: 'CAHN FC',
   players: [
     {
-      id: uniqueId(),
+      id: 1,
       top: '4.5%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -18,7 +16,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 2,
       top: '17.5%',
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -27,7 +25,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 3,
       top: '25%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -36,7 +34,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 4,
       top: '16%',
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -45,7 +43,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 5,
       top: '42.5%',
       left: '15%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -54,7 +52,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 6,
       top: '42.5%',
       left: '85%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -63,7 +61,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 7,
       top: '57.5%',
       left: '30%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -72,7 +70,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 8,
       top: '57.5%',
       left: '70%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -81,7 +79,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 9,
       top: '75%',
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -90,7 +88,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 10,
       top: '75%',
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -99,7 +97,7 @@ export const lineUp1: ILineUp = {
       teamId: 1,
     },
     {
-      id: uniqueId(),
+      id: 11,
       top: '82.5%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -113,9 +111,11 @@ export const lineUp1: ILineUp = {
 export const lineUp2: ILineUp = {
   logo: '/assets/images/logo-club-2.svg',
   pos: 2,
+  teamId: 2,
+  teamName: 'HNFC',
   players: [
     {
-      id: uniqueId(),
+      id: 12,
       top: '4.5%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -124,7 +124,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 13,
       top: '17.5%',
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -133,7 +133,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 14,
       top: '25%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -142,7 +142,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 15,
       top: '16%',
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -151,7 +151,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 16,
       top: '42.5%',
       left: '15%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -160,7 +160,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 17,
       top: '42.5%',
       left: '85%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -169,7 +169,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 18,
       top: '57.5%',
       left: '30%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -178,7 +178,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 19,
       top: '57.5%',
       left: '70%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -187,7 +187,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 20,
       top: '75%',
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -196,7 +196,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 21,
       top: '75%',
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
@@ -205,7 +205,7 @@ export const lineUp2: ILineUp = {
       teamId: 2,
     },
     {
-      id: uniqueId(),
+      id: 22,
       top: '82.5%',
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
