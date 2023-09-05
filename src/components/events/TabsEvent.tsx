@@ -1,4 +1,4 @@
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 interface IProps {
   currentTab: number
@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const TabsEvent = ({ currentTab, setCurrentTab }: IProps) => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div

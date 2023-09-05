@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export interface IRadioGroupProps {
   name: string
@@ -17,7 +17,7 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
     formState: { errors },
   } = useFormContext()
   const error = errors[name]?.message as string | undefined
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div>

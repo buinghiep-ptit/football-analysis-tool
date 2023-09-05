@@ -1,5 +1,5 @@
 import { Slider } from '@mui/material'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export interface ISliderControlProps {
   onMouseDown: (e?: any) => void
@@ -16,7 +16,7 @@ export function SliderTimeControl({
   value,
   duration,
 }: ISliderControlProps) {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div

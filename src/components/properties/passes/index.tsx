@@ -1,4 +1,4 @@
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 import { BodyPass } from './BodyPass'
 import { Location } from './Location'
 import { PassBackheel } from './PassBackheel'
@@ -13,7 +13,7 @@ import { PassHeight } from './PassHeight'
 import { Outcome } from './Outcome'
 
 export const Pass = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div className="overflow-auto" style={{ margin: `${16 * scale}px` }}>

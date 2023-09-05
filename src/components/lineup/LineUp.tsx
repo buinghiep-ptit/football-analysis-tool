@@ -1,14 +1,15 @@
+import { IPlayer } from 'models'
 import { useState } from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
-export interface IPlayer {
-  top: string
-  left: string
-  imgUrl: string
-  num: string
-  name: string
-  playerIdx: number
-  activeIdx: number
+export interface ItemProps {
+  top?: string
+  left?: string
+  imgUrl?: string
+  num?: string
+  name?: string
+  isActive?: boolean
+  isFirst?: boolean
 }
 
 const Item = ({
@@ -18,9 +19,9 @@ const Item = ({
   imgUrl,
   num,
   name,
-  playerIdx,
-  activeIdx,
-}: IPlayer & { scale: number }) => {
+  isActive,
+  isFirst,
+}: ItemProps & { scale: number }) => {
   return (
     <div
       className={`absolute cursor-pointer`}
@@ -32,7 +33,11 @@ const Item = ({
       <div className="flex flex-col items-center translate-x-[-50%] translate-y-[-2px] gap-[4px] ">
         <img
           src={
-            activeIdx === playerIdx ? '/assets/images/shirt-yellow.png' : imgUrl
+            isActive
+              ? !isFirst
+                ? '/assets/images/shirt-green.svg'
+                : '/assets/images/shirt-yellow.svg'
+              : imgUrl
           }
           width={36 * scale}
           height={28 * scale}
@@ -55,92 +60,44 @@ const Item = ({
   )
 }
 
-const listPlayer = [
-  {
-    top: '4.5%',
-    left: '50%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '01',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '17.5%',
-    left: '20%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '02',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '25%',
-    left: '50%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '03',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '16%',
-    left: '80%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '04',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '42.5%',
-    left: '15%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '05',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '42.5%',
-    left: '85%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '06',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '57.5%',
-    left: '30%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '07',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '57.5%',
-    left: '70%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '08',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '75%',
-    left: '20%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '09',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '75%',
-    left: '80%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '10',
-    name: 'Đ.V. Hậu',
-  },
-  {
-    top: '82.5%',
-    left: '50%',
-    imgUrl: '/assets/images/shirt-white.png',
-    num: '11',
-    name: 'Đ.V. Hậu',
-  },
-]
+export interface IProps {
+  lineUp?: {
+    logo?: string
+    pos?: number
+    teamName?: string
+    players: IPlayer[]
+  }
+}
 
-const LineUp = ({ logo }: { logo: string }) => {
-  const [activePlayer, setActivePlayer] = useState(-1)
-  const scale = useScale(state => state.scale)
+const LineUp = ({ lineUp }: IProps) => {
+  const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
+  // const updateData = useAppStore(state => state.updateData)
+  const [listActivePlayer, setListActivePlayer] = useState<number[]>(
+    data.listActivePlayer ?? [],
+  )
+
+  // useEffect(() => {
+  //   if (!data?.lineup) return
+  //   console.log(lineUp?.pos, data.lineupPos)
+  //   if (lineUp?.pos === data.lineupPos) {
+  //     setListActivePlayer(listActivePlayer.slice(-1))
+  //     updateData({
+  //       listActivePlayer: (data?.listActivePlayer ?? []).slice(-1),
+  //     })
+  //   } else {
+  //     setListActivePlayer([])
+  //     updateData({
+  //       listActivePlayer: [],
+  //     })
+  //   }
+  // }, [data.lineup])
 
   const handleMouseDown = (idx: number) => {
-    setActivePlayer(idx)
+    setListActivePlayer(prev => [...prev.slice(-1), idx])
+    // updateData({
+    //   listActivePlayer: [...(data.listActivePlayer ?? []).slice(-1), idx],
+    // })
   }
 
   return (
@@ -170,22 +127,25 @@ const LineUp = ({ logo }: { logo: string }) => {
       <div className="flex-1 relative">
         <img src="/assets/images/lineup-bg.png" width={'100%'} alt="" />
         <img
-          src={logo}
+          src={lineUp?.logo}
           width={28 * scale}
           height={28 * scale}
           style={{ position: 'absolute', top: 12 * scale, left: 12 * scale }}
         />
-        {listPlayer.map((p, index) => (
+        {lineUp?.players.map((p, index) => (
           <div key={index} onMouseDown={() => handleMouseDown(index)}>
             <Item
               scale={scale}
-              top={p.top}
-              left={p.left}
-              imgUrl={p.imgUrl}
-              num={p.num}
-              name={p.name}
-              playerIdx={index}
-              activeIdx={activePlayer}
+              top={p?.top}
+              left={p?.left}
+              imgUrl={p?.imgUrl}
+              num={p?.jerseyNo}
+              name={p?.name}
+              isActive={
+                (listActivePlayer ?? []).findIndex((p: any) => p === index) !==
+                -1
+              }
+              isFirst={index === (listActivePlayer ?? [])[0]}
             />
           </div>
         ))}

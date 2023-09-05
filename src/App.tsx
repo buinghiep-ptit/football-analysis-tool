@@ -6,16 +6,61 @@ import { Player } from 'components/player'
 import { Properties } from 'components/properties'
 import * as React from 'react'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 import * as yup from 'yup'
 import './App.css'
+import { lineUp1 } from 'data'
 const ASPECT_RATIO = 1872 / 946
+
+export const SubmitButton = ({
+  onClick,
+  title,
+  hotkey,
+  scale,
+  width,
+}: {
+  onClick: () => void
+  title: string
+  hotkey: string
+  scale: number
+  width: number
+}) => {
+  return (
+    <div
+      className="flex flex-col items-center"
+      style={{ gap: `${8 * scale}px` }}
+    >
+      <button
+        onClick={onClick}
+        className="btn hover:bg-white transition ease-out duration-500"
+        style={{
+          fontSize: `${16 * scale}px`,
+          width: `${width * scale}px`,
+          padding: `${12 * scale}px ${16 * scale}px`,
+        }}
+      >
+        {title}
+      </button>
+      <span
+        className="text-neutral-5"
+        style={{
+          fontSize: `${13 * scale}px`,
+        }}
+      >
+        ({hotkey})
+      </span>
+    </div>
+  )
+}
 
 function App() {
   const viewportRef = React.useRef(null) as any
   const [isTall, setIsTall] = React.useState(false)
-  const scale = useScale(state => state.scale)
-  const updateScale = useScale(state => state.updateScale)
+  const scale = useAppStore(state => state.scale)
+  const updateScale = useAppStore(state => state.updateScale)
+  const data = useAppStore(state => state.data)
+  const updateData = useAppStore(state => state.updateData)
+
   React.useEffect(() => {
     const container = document.getElementById('container') as any
 
@@ -52,11 +97,11 @@ function App() {
       passbackheel: true,
       passdeflected: false,
       passmiscommunication: true,
-      bodypass: '6',
-      passtype: '4',
-      technique: '3',
-      passheight: '2',
-      outcome: '4',
+      bodypass: '1',
+      passtype: '1',
+      technique: '1',
+      passheight: '1',
+      outcome: '1',
     },
     mode: 'onChange',
     resolver: yupResolver(validationSchema),
@@ -65,6 +110,8 @@ function App() {
   const onSubmitHandler: SubmitHandler<any> = async (values: any) => {
     console.log('values:', values)
   }
+
+  console.log(data)
 
   return (
     <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
@@ -98,8 +145,12 @@ function App() {
                 >
                   <div className="w-[52.25%]">
                     <div className="flex flex-row bg-neutral-9">
-                      <LineUp logo="/assets/images/logo-club-1.svg" />
-                      <LineUp logo="/assets/images/logo-club-2.svg" />
+                      <div onMouseDown={() => updateData({ lineupPos: 1 })}>
+                        <LineUp lineUp={lineUp1} />
+                      </div>
+                      <div onMouseDown={() => updateData({ lineupPos: 2 })}>
+                        <LineUp lineUp={lineUp1} />
+                      </div>
                     </div>
                   </div>
                   <div className="w-[47.75%]">
@@ -126,80 +177,29 @@ function App() {
                 gap: `${16 * scale}px`,
               }}
             >
-              <div
-                className="flex flex-col items-center"
-                style={{ gap: `${8 * scale}px` }}
-              >
-                <button
-                  onClick={methods.handleSubmit(onSubmitHandler)}
-                  className="btn hover:bg-white transition ease-out duration-500"
-                  style={{
-                    fontSize: `${16 * scale}px`,
-                    width: `${96 * scale}px`,
-                    padding: `${12 * scale}px ${16 * scale}px`,
-                  }}
-                >
-                  Hủy
-                </button>
-                <span
-                  className="text-neutral-5"
-                  style={{
-                    fontSize: `${13 * scale}px`,
-                  }}
-                >
-                  (Esc)
-                </span>
-              </div>
+              <SubmitButton
+                onClick={methods.handleSubmit(onSubmitHandler)}
+                title="Hủy"
+                hotkey="Esc"
+                scale={scale}
+                width={96}
+              />
 
-              <div
-                className="flex flex-col items-center"
-                style={{ gap: `${8 * scale}px` }}
-              >
-                <button
-                  onClick={methods.handleSubmit(onSubmitHandler)}
-                  className="btn hover:bg-white transition ease-out duration-500"
-                  style={{
-                    fontSize: `${16 * scale}px`,
-                    width: `${132 * scale}px`,
-                    padding: `${12 * scale}px ${16 * scale}px`,
-                  }}
-                >
-                  Để sau
-                </button>
-                <span
-                  className="text-neutral-5"
-                  style={{
-                    fontSize: `${13 * scale}px`,
-                  }}
-                >
-                  (Shift)
-                </span>
-              </div>
+              <SubmitButton
+                onClick={methods.handleSubmit(onSubmitHandler)}
+                title="Để sau"
+                hotkey="Shift"
+                scale={scale}
+                width={132}
+              />
 
-              <div
-                className="flex flex-col items-center"
-                style={{ gap: `${8 * scale}px` }}
-              >
-                <button
-                  onClick={methods.handleSubmit(onSubmitHandler)}
-                  className="btn hover:bg-white transition ease-out duration-500"
-                  style={{
-                    fontSize: `${16 * scale}px`,
-                    width: `${132 * scale}px`,
-                    padding: `${12 * scale}px ${16 * scale}px`,
-                  }}
-                >
-                  Hoàn thành
-                </button>
-                <span
-                  className="text-neutral-5"
-                  style={{
-                    fontSize: `${13 * scale}px`,
-                  }}
-                >
-                  (Enter)
-                </span>
-              </div>
+              <SubmitButton
+                onClick={methods.handleSubmit(onSubmitHandler)}
+                title="Hoàn thành"
+                hotkey="Enter"
+                scale={scale}
+                width={132}
+              />
             </div>
           </div>
         </div>

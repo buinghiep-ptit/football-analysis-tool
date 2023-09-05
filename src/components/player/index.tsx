@@ -1,9 +1,9 @@
 import React from 'react'
 import { VideoPlayer } from './VideoPlayer'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const Player = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div className="video bg-neutral-8">

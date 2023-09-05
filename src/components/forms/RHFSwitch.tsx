@@ -1,5 +1,5 @@
 import { Controller, useFormContext } from 'react-hook-form'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export interface ICheckBoxProps {
   name: string
@@ -9,7 +9,7 @@ export interface ICheckBoxProps {
 
 export function RHFSwitch({ name }: ICheckBoxProps) {
   const { control } = useFormContext()
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <Controller

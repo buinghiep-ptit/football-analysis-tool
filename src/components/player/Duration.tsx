@@ -1,8 +1,8 @@
 import React from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export default function Duration({ size, seconds }: any) {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <span

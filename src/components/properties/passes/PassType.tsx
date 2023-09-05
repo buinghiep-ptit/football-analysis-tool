@@ -1,6 +1,6 @@
 import { RadioGroup } from 'components/forms/RadioGroup'
 import React from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 const passtype = [
   { value: '1', name: 'Corner' },
@@ -13,7 +13,7 @@ const passtype = [
 ]
 
 export const PassType = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div className="flex flex-col" style={{ gap: `${16 * scale}px` }}>

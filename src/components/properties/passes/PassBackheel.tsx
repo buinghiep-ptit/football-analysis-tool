@@ -1,8 +1,8 @@
 import { RHFSwitch } from 'components/forms/RHFSwitch'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const PassBackheel = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div

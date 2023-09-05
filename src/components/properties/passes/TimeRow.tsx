@@ -1,8 +1,8 @@
 import React from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const TimeRow = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div className="flex flex-row" style={{ gap: `${32 * scale}px` }}>

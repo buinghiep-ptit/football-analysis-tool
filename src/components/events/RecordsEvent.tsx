@@ -2,7 +2,7 @@ import React from 'react'
 import MuiTable from 'components/common/MuiTable'
 import { eventColumns } from 'utils/columns/EventColumns'
 import { useInView } from 'react-intersection-observer'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 const DATA = [
   {
@@ -75,7 +75,7 @@ const DATA = [
 
 export const RecordsEvent = () => {
   const { ref, inView } = useInView()
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   React.useEffect(() => {
     if (inView) {

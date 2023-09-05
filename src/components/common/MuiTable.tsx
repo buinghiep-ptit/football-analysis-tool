@@ -18,7 +18,7 @@ import TableRow from '@mui/material/TableRow'
 import { Box } from '@mui/material'
 import { TableColumn } from 'models/common'
 import * as React from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const StyledTableRow = styled(TableRow)`
   &:nth-of-type(odd) {
@@ -98,7 +98,7 @@ export default function MuiTable<T extends Record<string, any>>({
   setSelectedItems,
   multipleSelect = true,
 }: MuiPagingTableProps<T>) {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   const memoizedData = React.useMemo(() => rows, [rows])
   const memoizedColumns = React.useMemo(() => columns, [columns])

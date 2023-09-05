@@ -2,7 +2,7 @@ import * as React from 'react'
 import ReactPlayer from 'react-player'
 import { SliderTimeControl } from './SliderTimeControl'
 import Duration from './Duration'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export interface IVideoPlayerProps {
   url?: string
@@ -26,6 +26,8 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   })
 
   const playerRef = React.useRef(null) as any
+
+  const scale = useAppStore(state => state.scale)
 
   const handleSeekMouseDown = () => {
     setState(prev => ({
@@ -66,13 +68,51 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
     setState(prev => ({ ...prev, duration }))
   }
 
-  const scale = useScale(state => state.scale)
+  // const handlePlayPause = () => {
+  //   setState(prev => ({ ...prev, playing: !state.playing }))
+  // }
+
+  const togglePlayPause = () => {
+    if (playerRef.current) {
+      const player = playerRef.current.getInternalPlayer()
+      if (player) {
+        if (player.paused) {
+          player.play()
+        } else {
+          player.pause()
+        }
+      }
+    }
+  }
+
+  const handleSpaceKeyPress = (event: any) => {
+    if (event.key === ' ') {
+      togglePlayPause()
+    }
+  }
+
+  React.useEffect(() => {
+    // Add event listener when the component mounts
+    document.addEventListener('keydown', handleSpaceKeyPress)
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener('keydown', handleSpaceKeyPress)
+    }
+  }, [])
+
+  const handlePlay = () => {
+    setState(prev => ({ ...prev, playing: true }))
+  }
+
+  const handlePause = () => {
+    setState(prev => ({ ...prev, playing: false }))
+  }
 
   return (
     <div className="relative">
-      <div className="pt-[56.25%] relative">
+      <div className="pt-[56.25%] relative" onMouseDown={togglePlayPause}>
         <ReactPlayer
-          key={1}
           ref={playerRef}
           style={{ position: 'absolute', top: 0, left: 0 }}
           width="100%"
@@ -87,9 +127,16 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
               },
             },
           }}
+          light={state.light}
           playing={state.playing}
           muted={state.muted}
           onProgress={handleProgress}
+          onPlay={() => {
+            handlePlay()
+          }}
+          onPause={() => {
+            handlePause()
+          }}
           onDuration={handleDuration}
           //   onSeek={e => console.log('onSeek', e)}
         />
@@ -110,7 +157,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
           margin: `${24 * scale}px ${40 * scale}px ${16 * scale}px ${
             40 * scale
           }px`,
-          padding: `${14 * scale}px 0`,
+          padding: `${12 * scale}px 0`,
         }}
       >
         <div
@@ -127,7 +174,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
           style={{
             left: `calc(${
               (state.played * state.duration * 100) / state.duration
-            }% - 8px)`,
+            }% - ${16 * scale}px)`,
           }}
         >
           <Duration size={16} seconds={state.played * state.duration} />

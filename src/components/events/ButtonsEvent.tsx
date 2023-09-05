@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const Button = ({
   title,
@@ -71,18 +71,43 @@ const listEventKey = [
   { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
   { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
   { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
+  // { title: 'Hoàn thành', subtile: '', value: 'enter' },
+  // { title: 'Để sau', subtile: '', value: 'shift' },
+  // { title: 'Hủy', subtile: '', value: 'escape' },
 ]
 
 const ButtonsEvent = () => {
   const [activeIdx, setActiveIdx] = useState(-1)
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
+  const currentKey = useAppStore(state => state.currentKey)
+  const updateKey = useAppStore(state => state.updateKey)
+
+  useEffect(() => {
+    if (currentKey) {
+      const currentButtonIndex = listEventKey.findIndex(
+        b => b.key && b.key === currentKey,
+      )
+      if (currentButtonIndex !== -1) {
+        setActiveIdx(currentButtonIndex)
+      }
+    }
+  }, [])
+
+  const handleMouseDown = (index: number) => {
+    setActiveIdx(index)
+    const activeKey = listEventKey[index].key
+    updateKey(activeKey)
+  }
 
   const handleKeyDown = (event: any) => {
     const key = event.key.toLowerCase()
     const currentButtonIndex = listEventKey.findIndex(
       b => b.key && b.key === key,
     )
-    if (currentButtonIndex !== -1) setActiveIdx(currentButtonIndex)
+    if (currentButtonIndex !== -1) {
+      setActiveIdx(currentButtonIndex)
+      updateKey(key)
+    }
   }
 
   useEffect(() => {
@@ -103,7 +128,7 @@ const ButtonsEvent = () => {
           <div
             key={index}
             className="col-span-1"
-            onMouseDown={() => setActiveIdx(index)}
+            onMouseDown={() => handleMouseDown(index)}
           >
             <Button
               activeIndex={activeIdx}

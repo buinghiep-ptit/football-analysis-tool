@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 const CoordinatesPlayer = () => {
-  const [clickCoordinates, setClickCoordinates] = useState([])
+  const [clickCoordinates, setClickCoordinates] = useState({ x: 0, y: 0 })
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const parentRef = useRef(null) as any
   const [parentWidth, setParentWidth] = useState(0)
   const [parentHeight, setParentHeight] = useState(0)
 
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   const handleMouseMove = (event: any) => {
     if (parentRef.current) {
@@ -36,7 +36,7 @@ const CoordinatesPlayer = () => {
     const newCoordinate = { x, y }
 
     setClickCoordinates(
-      prevCoordinates => [...prevCoordinates, newCoordinate] as any,
+      newCoordinate, //prevCoordinates => [...prevCoordinates, newCoordinate] as any,
     )
   }
 
@@ -80,20 +80,23 @@ const CoordinatesPlayer = () => {
             {Math.round((mousePosition.y * 100) / parentHeight)})
           </div>
         )}
-        {clickCoordinates.map((c: any, index) => (
+        {/* {clickCoordinates.map((c: any, index) => ( */}
+        {clickCoordinates.x !== 0 && clickCoordinates.y !== 0 && (
           <div
-            key={index}
+            // key={index}
             className="mouse-coordinates"
             style={{
-              left: c.x - 22 * scale,
-              top: c.y - 8 * scale,
+              left: clickCoordinates.x - 22 * scale,
+              top: clickCoordinates.y - 8 * scale,
               fontSize: `${scale * 12}px`,
             }}
           >
-            ({Math.round((c.x * 100) / parentWidth)},{' '}
-            {Math.round((c.y * 100) / parentHeight)})
+            ({Math.round((clickCoordinates.x * 100) / parentWidth)},{' '}
+            {Math.round((clickCoordinates.y * 100) / parentHeight)})
           </div>
-        ))}
+        )}
+
+        {/* ))} */}
       </div>
     </div>
   )

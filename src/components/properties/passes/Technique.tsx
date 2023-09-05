@@ -1,6 +1,6 @@
 import { RadioGroup } from 'components/forms/RadioGroup'
 import React from 'react'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 const tech = [
   { value: '1', name: 'Inswinging' },
@@ -10,7 +10,7 @@ const tech = [
 ]
 
 export const Technique = () => {
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
 
   return (
     <div className="flex flex-col" style={{ gap: `${16 * scale}px` }}>

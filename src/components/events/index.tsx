@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import TabsEvent from './TabsEvent'
 import ButtonsEvent from './ButtonsEvent'
 import { RecordsEvent } from './RecordsEvent'
-import { useScale } from 'store'
+import { useAppStore } from 'store'
 
 export const Events = () => {
   const [currentTab, setCurrentTab] = useState(1)
 
-  const scale = useScale(state => state.scale)
+  const scale = useAppStore(state => state.scale)
   return (
     <div className="bg-neutral-8 overflow-hidden">
       <div className="flex flex-col w-[100%] h-[100%] relative">
