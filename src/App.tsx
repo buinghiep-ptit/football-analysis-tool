@@ -64,7 +64,6 @@ function App() {
   const removeData = useAppStore(state => state.removeData)
   const addRecord = useAppStore(state => state.addRecord)
   const editRecord = useAppStore(state => state.editRecord)
-  const updateKey = useAppStore(state => state.updateKey)
 
   React.useEffect(() => {
     const container = document.getElementById('container') as any
@@ -133,8 +132,10 @@ function App() {
     } else {
       const currentButtonIndex = LIST_KEY.findIndex(b => b.key && b.key === key)
       if (currentButtonIndex !== -1) {
-        updateKey(key)
-        updateData({ eventName: LIST_KEY[currentButtonIndex].title })
+        updateData({
+          eventName: LIST_KEY[currentButtonIndex].title,
+          currentKey: key,
+        })
       }
     }
   }

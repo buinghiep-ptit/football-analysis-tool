@@ -32,14 +32,13 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   const [isReady, setIsReady] = React.useState(false)
   const updateData = useAppStore(state => state.updateData)
   const removeData = useAppStore(state => state.removeData)
-  const updateKey = useAppStore(state => state.updateKey)
   const pauseVid = useAppStore(state => state.pauseVid)
   const playing = useAppStore(state => state.playing)
   const togglePlaying = useAppStore(state => state.togglePlaying)
 
   const onReady = React.useCallback(() => {
     if (!isReady && data.curVidTime) {
-      const timeToStart = data.curVidTime
+      const timeToStart = data.curVidTime ?? 0
       playerRef.current.seekTo(timeToStart, 'seconds')
       setIsReady(true)
     }
@@ -102,7 +101,9 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
         if (player.paused && !externalKey) {
           removeData()
           // player.play()
-          updateKey('')
+          updateData({
+            currentKey: '',
+          })
         } else {
           updateData({
             curVidTime: playerRef.current.getInternalPlayer().currentTime,

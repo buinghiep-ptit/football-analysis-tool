@@ -9,8 +9,6 @@ export const useAppStore = create(
       updateScale: newScale => set(() => ({ scale: newScale })),
       togglePlaying: () => set(state => ({ playing: !state.playing })),
       pauseVid: () => set(() => ({ playing: false })),
-      currentKey: '',
-      updateKey: newKey => set(() => ({ currentKey: newKey })),
       data: {},
       updateData: (newData, isReplace) =>
         set(state => ({

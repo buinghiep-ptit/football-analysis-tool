@@ -54,24 +54,26 @@ export const Button = ({
 const ButtonsEvent = () => {
   const [activeIdx, setActiveIdx] = useState(-1)
   const scale = useAppStore(state => state.scale)
-  const currentKey = useAppStore(state => state.currentKey)
-  const updateKey = useAppStore(state => state.updateKey)
+  const data = useAppStore(state => state.data)
+  const updateData = useAppStore(state => state.updateData)
+
   const pauseVid = useAppStore(state => state.pauseVid)
 
   useEffect(() => {
     const currentButtonIndex = LIST_KEY.findIndex(
-      b => b.key && b.key === currentKey,
+      b => b.key && b.key === data?.currentKey,
     )
     if (currentButtonIndex !== -1) {
       setActiveIdx(currentButtonIndex)
     } else {
       setActiveIdx(-1)
     }
-  }, [currentKey])
+    console.log('data?.currentKey:', data?.currentKey)
+  }, [data])
 
   const handleMouseDown = (index: number) => {
     const activeKey = LIST_KEY[index].key
-    updateKey(activeKey)
+    updateData({ currentKey: activeKey })
     pauseVid()
   }
 

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useAppStore } from 'store'
 
 const CoordinatesPlayer = () => {
@@ -11,12 +11,21 @@ const CoordinatesPlayer = () => {
   const data = useAppStore(state => state.data)
   const updateData = useAppStore(state => state.updateData)
 
+  useEffect(() => {
+    const pWidth = parentRef.current.offsetHeight
+    const pHeight = parentRef.current.offsetWidth
+    setParentWidth(pWidth)
+    setParentHeight(pHeight)
+  }, [])
+
+  console.log(parentWidth, parentHeight)
+
   const handleMouseMove = (event: any) => {
     if (parentRef.current) {
-      const pWidth = parentRef.current.offsetHeight
-      const pHeight = parentRef.current.offsetWidth
-      setParentWidth(pWidth)
-      setParentHeight(pHeight)
+      // const pWidth = parentRef.current.offsetHeight
+      // const pHeight = parentRef.current.offsetWidth
+      // setParentWidth(pWidth)
+      // setParentHeight(pHeight)
       const divRect = event.currentTarget.getBoundingClientRect()
       const x = event.clientX - divRect.left
       const y = event.clientY - divRect.top
@@ -27,18 +36,18 @@ const CoordinatesPlayer = () => {
 
   const handleMouseDown = (event: any) => {
     if (parentRef.current) {
-      const pWidth = parentRef.current.offsetHeight
-      const pHeight = parentRef.current.offsetWidth
-      setParentWidth(pWidth)
-      setParentHeight(pHeight)
+      // const pWidth = parentRef.current.offsetHeight
+      // const pHeight = parentRef.current.offsetWidth
+      // setParentWidth(pWidth)
+      // setParentHeight(pHeight)
       const divRect = event.currentTarget.getBoundingClientRect()
       const x = event.clientX - divRect.left
       const y = event.clientY - divRect.top
 
       updateData({
         startLocation: {
-          x: Math.round((x * 100) / pWidth),
-          y: Math.round((y * 100) / pHeight),
+          x: Math.round((x * 100) / parentWidth),
+          y: Math.round((y * 100) / parentHeight),
         },
       })
     }

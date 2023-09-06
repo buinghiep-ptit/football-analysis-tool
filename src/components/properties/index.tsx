@@ -2,8 +2,8 @@ import { useAppStore } from 'store'
 import { Pass } from './passes'
 
 export const Properties = () => {
-  const currentKey = useAppStore(state => state.currentKey)
+  const data = useAppStore(state => state.data)
 
-  if (currentKey === '1' || !currentKey) return <Pass />
+  if (data?.currentKey === '1' || !data?.currentKey) return <Pass />
   else return <></>
 }
