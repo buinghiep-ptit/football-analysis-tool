@@ -45,6 +45,13 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
     }
   }, [isReady])
 
+  React.useEffect(() => {
+    if (data.id) {
+      const timeToStart = data.curVidTime
+      playerRef.current.seekTo(timeToStart, 'seconds')
+    }
+  }, [data])
+
   const handleSeekMouseDown = () => {
     setState(prev => ({
       ...prev,

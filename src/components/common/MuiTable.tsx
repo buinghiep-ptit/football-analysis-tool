@@ -78,7 +78,7 @@ type MuiPagingTableProps<T extends Record<string, any>> = {
     disableKey?: string
     disableActions?: (key?: number) => boolean
   }[]
-  setSelectedItems?: (items: readonly T[]) => void
+  selectedItem?: T
   multipleSelect?: boolean
 }
 
@@ -93,7 +93,7 @@ export default function MuiTable<T extends Record<string, any>>({
   page = 0,
   actionKeys = ['status'],
   actions = [],
-  setSelectedItems,
+  selectedItem,
   multipleSelect = false,
 }: MuiPagingTableProps<T>) {
   const scale = useAppStore(state => state.scale)
@@ -124,6 +124,10 @@ export default function MuiTable<T extends Record<string, any>>({
 
   const [selected, setSelected] = React.useState<readonly T[]>([])
 
+  React.useEffect(() => {
+    if (selectedItem) setSelected([selectedItem])
+  }, [selectedItem])
+
   const handleClick = (event: React.MouseEvent<unknown>, row: T) => {
     const selectedIndex = selected.findIndex(s => s.id === row.id)
     let newSelected: readonly T[] = []
@@ -141,7 +145,6 @@ export default function MuiTable<T extends Record<string, any>>({
         selected.slice(selectedIndex + 1),
       )
     }
-    setSelectedItems && setSelectedItems(newSelected)
     setSelected(newSelected)
   }
 
@@ -205,6 +208,7 @@ export default function MuiTable<T extends Record<string, any>>({
                     key={index}
                     selected={isItemSelected}
                     sx={{
+                      cursor: 'pointer',
                       '&.MuiTableRow-hover': {
                         '&:hover': {
                           backgroundColor: '#292E33',
@@ -237,10 +241,6 @@ export default function MuiTable<T extends Record<string, any>>({
                                 ? 2 * scale
                                 : 1 * scale,
                             py: 1.5 * scale,
-                            cursor:
-                              column.action || column.link
-                                ? 'pointer'
-                                : 'default',
                             zIndex: 1,
                           }}
                         >

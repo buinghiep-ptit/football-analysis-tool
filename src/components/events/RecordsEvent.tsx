@@ -95,14 +95,22 @@ export const RecordsEvent = () => {
   const { ref, inView } = useInView()
   const scale = useAppStore(state => state.scale)
   const records = useAppStore(state => state.records)
+  const data = useAppStore(state => state.data)
   const updateData = useAppStore(state => state.updateData)
   const removeRecord = useAppStore(state => state.removeRecord)
+  const [selectedRow, setSelectedRow] = React.useState()
 
   React.useEffect(() => {
     if (inView) {
       console.log('intersection')
     }
   }, [inView])
+
+  React.useEffect(() => {
+    if (data.id) {
+      setSelectedRow(data)
+    }
+  }, [data])
 
   const handleClickRow = (cell: any, row: any) => {
     const newData = records?.find((r: any) => r.id === row.id)
@@ -125,6 +133,7 @@ export const RecordsEvent = () => {
         rowsPerPage={5}
         page={0}
         onClickRow={handleClickRow}
+        selectedItem={selectedRow}
         actions={[
           {
             icon: (
