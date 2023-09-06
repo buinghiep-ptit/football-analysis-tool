@@ -1,21 +1,19 @@
 import {
+  Box,
   Icon,
   IconButton,
   Skeleton,
   Stack,
   styled,
-  Toolbar,
   Tooltip,
   Typography,
 } from '@mui/material'
-import { alpha } from '@mui/material/styles'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell, { tableCellClasses } from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
-import { Box } from '@mui/material'
 import { TableColumn } from 'models/common'
 import * as React from 'react'
 import { useAppStore } from 'store'
@@ -96,7 +94,7 @@ export default function MuiTable<T extends Record<string, any>>({
   actionKeys = ['status'],
   actions = [],
   setSelectedItems,
-  multipleSelect = true,
+  multipleSelect = false,
 }: MuiPagingTableProps<T>) {
   const scale = useAppStore(state => state.scale)
 
@@ -151,13 +149,10 @@ export default function MuiTable<T extends Record<string, any>>({
 
   return (
     <>
-      {selected.length ? (
-        <EnhancedTableToolbar numSelected={selected.length} />
-      ) : null}
       <TableContainer
         sx={{
           maxHeight: maxHeight ?? null,
-          // height: '100%',
+          height: '100%',
         }}
       >
         <Table
@@ -204,6 +199,7 @@ export default function MuiTable<T extends Record<string, any>>({
                 return (
                   <StyledTableRow
                     hover
+                    onClick={event => handleClick(event, row)}
                     role="checkbox"
                     tabIndex={-1}
                     key={index}
@@ -213,6 +209,8 @@ export default function MuiTable<T extends Record<string, any>>({
                         '&:hover': {
                           backgroundColor: '#292E33',
                         },
+
+                        '&.Mui-selected': { backgroundColor: '#292E33' },
                       },
                     }}
                   >
@@ -386,38 +384,5 @@ export default function MuiTable<T extends Record<string, any>>({
         )}
       </TableContainer>
     </>
-  )
-}
-interface EnhancedTableToolbarProps {
-  numSelected: number
-}
-
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected } = props
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        ...(numSelected > 0 && {
-          bgcolor: theme =>
-            alpha(
-              theme.palette.primary.main,
-              theme.palette.action.activatedOpacity,
-            ),
-        }),
-      }}
-    >
-      {numSelected > 0 && (
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          color="primary"
-          variant="subtitle2"
-        >
-          {numSelected} điểm camp đã được chọn
-        </Typography>
-      )}
-    </Toolbar>
   )
 }
