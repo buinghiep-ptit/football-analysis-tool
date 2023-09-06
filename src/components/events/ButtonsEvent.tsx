@@ -59,13 +59,13 @@ const ButtonsEvent = () => {
   const pauseVid = useAppStore(state => state.pauseVid)
 
   useEffect(() => {
-    if (currentKey) {
-      const currentButtonIndex = LIST_KEY.findIndex(
-        b => b.key && b.key === currentKey,
-      )
-      if (currentButtonIndex !== -1) {
-        setActiveIdx(currentButtonIndex)
-      }
+    const currentButtonIndex = LIST_KEY.findIndex(
+      b => b.key && b.key === currentKey,
+    )
+    if (currentButtonIndex !== -1) {
+      setActiveIdx(currentButtonIndex)
+    } else {
+      setActiveIdx(-1)
     }
   }, [currentKey])
 
