@@ -10,6 +10,7 @@ export interface ICheckBoxProps {
 export function RHFSwitch({ name }: ICheckBoxProps) {
   const { control } = useFormContext()
   const scale = useAppStore(state => state.scale)
+  const updateData = useAppStore(state => state.updateData)
 
   return (
     <Controller
@@ -21,7 +22,10 @@ export function RHFSwitch({ name }: ICheckBoxProps) {
           <input
             type="checkbox"
             {...field}
-            onChange={e => field.onChange(e.target.checked)}
+            onChange={e => {
+              field.onChange(e.target.checked)
+              updateData({ [name]: e.target.checked })
+            }}
             checked={field.value}
             className="sr-only peer"
           />

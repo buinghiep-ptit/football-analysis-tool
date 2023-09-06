@@ -154,7 +154,12 @@ export default function MuiTable<T extends Record<string, any>>({
       {selected.length ? (
         <EnhancedTableToolbar numSelected={selected.length} />
       ) : null}
-      <TableContainer sx={{ maxHeight: maxHeight ?? null }}>
+      <TableContainer
+        sx={{
+          maxHeight: maxHeight ?? null,
+          // height: '100%',
+        }}
+      >
         <Table
           stickyHeader
           aria-label="sticky table"
@@ -242,7 +247,7 @@ export default function MuiTable<T extends Record<string, any>>({
                             <Stack
                               flexDirection={'row'}
                               justifyContent="left"
-                              gap={1 * scale}
+                              gap={1.25 * scale}
                             >
                               {actions.map((action, index) => {
                                 if (action.type) {
@@ -364,17 +369,19 @@ export default function MuiTable<T extends Record<string, any>>({
         </Table>
         {noDataFound && (
           <Box
-            my={2}
-            minHeight={200}
+            height={'100%'}
             display="flex"
             alignItems="center"
             justifyContent={'center'}
             textAlign="center"
+            m={3}
           >
-            <Stack flexDirection={'row'} gap={1}>
-              {/* <FilterNone /> */}
-              <Typography>{error ? error.message : 'No data'}</Typography>
-            </Stack>
+            {/* <Stack flexDirection={'row'} gap={1}> */}
+            {/* <FilterNone /> */}
+            <Typography className="text-neutral-0 text-[12px]">
+              {error ? error.message : 'No record'}
+            </Typography>
+            {/* </Stack> */}
           </Box>
         )}
       </TableContainer>

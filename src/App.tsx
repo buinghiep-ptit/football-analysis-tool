@@ -1,16 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Events } from 'components/events'
 import CoordinatesPlayer from 'components/lineup/CoordinatesPlayer'
 import LineUp from 'components/lineup/LineUp'
 import { Player } from 'components/player'
 import { Properties } from 'components/properties'
 import { lineUp1, lineUp2 } from 'data'
-import * as React from 'react'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useAppStore } from 'store'
-import * as yup from 'yup'
-import './App.css'
 import { IPlayer } from 'models'
+import * as React from 'react'
+import { useAppStore } from 'store'
+import './App.css'
+import { uniqueId } from 'utils/common'
+import { toast } from 'react-toastify'
 const ASPECT_RATIO = 1872 / 946
 
 export const SubmitButton = ({
@@ -60,7 +59,11 @@ function App() {
   const scale = useAppStore(state => state.scale)
   const updateScale = useAppStore(state => state.updateScale)
   const data = useAppStore(state => state.data)
+  const playing = useAppStore(state => state.playing)
   const updateData = useAppStore(state => state.updateData)
+  const addRecord = useAppStore(state => state.addRecord)
+  const editRecord = useAppStore(state => state.editRecord)
+  const removeData = useAppStore(state => state.removeData)
 
   React.useEffect(() => {
     const container = document.getElementById('container') as any
@@ -91,133 +94,127 @@ function App() {
     }
   }, [])
 
-  const validationSchema = yup.object().shape({})
+  const cancelEvent = () => {}
 
-  const methods = useForm({
-    defaultValues: {
-      passbackheel: true,
-      passdeflected: false,
-      passmiscommunication: true,
-      bodypass: '1',
-      passtype: '1',
-      technique: '1',
-      passheight: '1',
-      outcome: '1',
-    },
-    mode: 'onChange',
-    resolver: yupResolver(validationSchema),
-  })
-
-  const onSubmitHandler: SubmitHandler<any> = async (values: any) => {
-    console.log('values:', values)
+  const latterEvent = () => {
+    addRecord({ ...data, status: 0, id: uniqueId() })
+    toast.warning('Đã lưu')
+    removeData()
   }
 
-  console.log('player active:', data)
+  const finishEvent = () => {
+    if (data.id) {
+      editRecord(data)
+    } else addRecord({ ...data, status: 1, id: uniqueId() })
+    removeData()
+    toast.success('Đã hoàn tất')
+  }
 
   return (
-    <form onSubmit={methods.handleSubmit(onSubmitHandler)}>
-      <FormProvider {...methods}>
-        <div
-          id="container"
-          className="relative flex justify-center items-center bg-neutral-9 m-0 h-[100vh] w-[100vw]"
-          style={{ padding: `${16 * scale}px ${24 * scale}px` }}
-        >
+    <div
+      id="container"
+      className="relative flex justify-center items-center bg-neutral-9 m-0 h-[100vh] w-[100vw]"
+      style={{
+        padding: `${16 * scale}px ${24 * scale}px`,
+      }}
+    >
+      <div
+        ref={viewportRef}
+        className={`relative aspect-[1872/946] overflow-hidden ${
+          isTall ? 'w-[100%] h-[auto]' : 'w-[auto] h-[100%]'
+        }`}
+      >
+        <div className="flex h-[100%]">
           <div
-            ref={viewportRef}
-            className={`relative aspect-[1872/946] overflow-hidden ${
-              isTall ? 'w-[100%] h-[auto]' : 'w-[auto] h-[100%]'
-            }`}
+            className="flex flex-col w-[42.735%] h-[100%]"
+            style={{ gap: `${24 * scale}px` }}
           >
-            <div className="flex h-[100%]">
-              <div
-                className="flex flex-col w-[42.735%] h-[100%]"
-                style={{ gap: `${24 * scale}px` }}
-              >
-                <Player />
-                <Events />
+            <Player />
+            <Events />
+          </div>
+          <div
+            className="flex flex-col w-[57.265%] h-[100%] gap-1"
+            style={{
+              paddingLeft: `${20 * scale}px`,
+              pointerEvents: playing ? 'none' : 'inherit',
+            }}
+          >
+            <div
+              className="flex flex-row  bg-neutral-8"
+              style={{ paddingBottom: `${20 * scale}px` }}
+            >
+              <div className="w-[52.25%]">
+                <div className="flex flex-row bg-neutral-9">
+                  <div onMouseDown={() => {}}>
+                    <LineUp
+                      lineUp={lineUp1}
+                      listActivePlayer={data?.listActivePlayer?.filter(
+                        (p: IPlayer) => p.teamId === lineUp1.teamId,
+                      )}
+                      updateData={updateData}
+                    />
+                  </div>
+                  <div onMouseDown={() => {}}>
+                    <LineUp
+                      lineUp={lineUp2}
+                      listActivePlayer={data?.listActivePlayer?.filter(
+                        (p: IPlayer) => p.teamId === lineUp2.teamId,
+                      )}
+                      updateData={updateData}
+                    />
+                  </div>
+                </div>
               </div>
-              <div
-                className="flex flex-col w-[57.265%] h-[100%] gap-1"
-                style={{ paddingLeft: `${20 * scale}px` }}
-              >
-                <div
-                  className="flex flex-row  bg-neutral-8"
-                  style={{ paddingBottom: `${20 * scale}px` }}
-                >
-                  <div className="w-[52.25%]">
-                    <div className="flex flex-row bg-neutral-9">
-                      <div onMouseDown={() => {}}>
-                        <LineUp
-                          lineUp={lineUp1}
-                          listActivePlayer={data?.listActivePlayer?.filter(
-                            (p: IPlayer) => p.teamId === lineUp1.teamId,
-                          )}
-                          updateData={updateData}
-                        />
-                      </div>
-                      <div onMouseDown={() => {}}>
-                        <LineUp
-                          lineUp={lineUp2}
-                          listActivePlayer={data?.listActivePlayer?.filter(
-                            (p: IPlayer) => p.teamId === lineUp2.teamId,
-                          )}
-                          updateData={updateData}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="w-[47.75%]">
-                    <CoordinatesPlayer />
-                  </div>
-                </div>
-
-                <div className="bg-neutral-8 overflow-hidden flex-grow">
-                  <div className="flex flex-col h-[100%]">
-                    <Properties />
-                  </div>
-                </div>
+              <div className="w-[47.75%]">
+                <CoordinatesPlayer />
               </div>
             </div>
 
-            <div
-              className="absolute flex flex-row bg-[#292E33]"
-              style={{
-                padding: `${20 * scale}px ${16 * scale}px ${12 * scale}px ${
-                  16 * scale
-                }px`,
-                bottom: 0,
-                right: 0,
-                gap: `${16 * scale}px`,
-              }}
-            >
-              <SubmitButton
-                onClick={methods.handleSubmit(onSubmitHandler)}
-                title="Hủy"
-                hotkey="Esc"
-                scale={scale}
-                width={96}
-              />
-
-              <SubmitButton
-                onClick={methods.handleSubmit(onSubmitHandler)}
-                title="Để sau"
-                hotkey="Shift"
-                scale={scale}
-                width={132}
-              />
-
-              <SubmitButton
-                onClick={methods.handleSubmit(onSubmitHandler)}
-                title="Hoàn thành"
-                hotkey="Enter"
-                scale={scale}
-                width={132}
-              />
+            <div className="bg-neutral-8 overflow-hidden flex-grow">
+              <div className="flex flex-col h-[100%]">
+                <Properties />
+              </div>
             </div>
           </div>
         </div>
-      </FormProvider>
-    </form>
+
+        <div
+          className="absolute flex flex-row bg-[#292E33]"
+          style={{
+            padding: `${20 * scale}px ${16 * scale}px ${12 * scale}px ${
+              16 * scale
+            }px`,
+            bottom: 0,
+            right: 0,
+            gap: `${16 * scale}px`,
+          }}
+        >
+          <SubmitButton
+            onClick={cancelEvent}
+            title="Hủy"
+            hotkey="Esc"
+            scale={scale}
+            width={96}
+          />
+
+          <SubmitButton
+            onClick={latterEvent}
+            title="Để sau"
+            hotkey="Shift"
+            scale={scale}
+            width={132}
+          />
+
+          <SubmitButton
+            onClick={finishEvent}
+            title="Hoàn thành"
+            hotkey="Enter"
+            scale={scale}
+            width={132}
+          />
+        </div>
+      </div>
+    </div>
   )
 }
 

@@ -10,7 +10,7 @@ const TabsEvent = ({ currentTab, setCurrentTab }: IProps) => {
 
   return (
     <div
-      className="flex flex-row justify-center items-center  bg-neutral-9"
+      className="flex flex-row justify-center items-center bg-neutral-9"
       style={{
         gap: `${scale * 136}px`,
       }}

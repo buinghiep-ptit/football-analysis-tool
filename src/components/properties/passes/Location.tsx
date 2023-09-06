@@ -3,6 +3,7 @@ import { useAppStore } from 'store'
 
 export const Location = () => {
   const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
 
   return (
     <div className="flex flex-row" style={{ gap: `${32 * scale}px` }}>
@@ -17,7 +18,7 @@ export const Location = () => {
           className="w-[55%] text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
         >
-          (10%, 20%)
+          ({data?.startLocation?.x}, {data?.startLocation?.y})
         </span>
       </div>
       <div className="flex flex-grow" style={{ gap: `${12 * scale}px` }}>
@@ -30,9 +31,7 @@ export const Location = () => {
         <span
           className="flex-grow text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
-        >
-          (10%, 20%)
-        </span>
+        ></span>
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import ReactPlayer from 'react-player'
-import { SliderTimeControl } from './SliderTimeControl'
-import Duration from './Duration'
 import { useAppStore } from 'store'
+import Duration from './Duration'
+import { SliderTimeControl } from './SliderTimeControl'
 
 export interface IVideoPlayerProps {
   url?: string
@@ -28,7 +28,22 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   const playerRef = React.useRef(null) as any
 
   const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
+  const [isReady, setIsReady] = React.useState(false)
   const updateData = useAppStore(state => state.updateData)
+  const removeData = useAppStore(state => state.removeData)
+  const pauseVid = useAppStore(state => state.pauseVid)
+
+  const playing = useAppStore(state => state.playing)
+  const togglePlaying = useAppStore(state => state.togglePlaying)
+
+  const onReady = React.useCallback(() => {
+    if (!isReady && data.curVidTime) {
+      const timeToStart = data.curVidTime
+      playerRef.current.seekTo(timeToStart, 'seconds')
+      setIsReady(true)
+    }
+  }, [isReady])
 
   const handleSeekMouseDown = () => {
     setState(prev => ({
@@ -60,9 +75,9 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   }
 
   const handleProgress = (state: any) => {
-    // if (!state.seeking) {
-    setState(prev => ({ ...prev, ...state }))
-    // }
+    if (!state.seeking) {
+      setState(prev => ({ ...prev, ...state }))
+    }
   }
 
   const handleDuration = (duration: number) => {
@@ -73,33 +88,43 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   //   setState(prev => ({ ...prev, playing: !state.playing }))
   // }
 
-  const togglePlayPause = () => {
+  const togglePlayPause = (externalKey?: boolean) => {
     if (playerRef.current) {
       const player = playerRef.current.getInternalPlayer()
       if (player) {
-        if (player.paused) {
-          player.play()
+        if (player.paused && !externalKey) {
+          removeData()
+          // player.play()
         } else {
           updateData({
-            vidTime: playerRef.current.getInternalPlayer().currentTime,
+            curVidTime: playerRef.current.getInternalPlayer().currentTime,
           })
-          player.pause()
+          // player.pause()
         }
+        if (!externalKey) togglePlaying()
+        else pauseVid()
       }
     }
   }
 
   const handleSpaceKeyPress = (event: any) => {
-    if (event.key === ' ') {
-      togglePlayPause()
+    console.log(event.key)
+    if (event.key === ' ' || event.key === '1') {
+      togglePlayPause(event.key === '1' ? true : false)
     }
   }
 
+  // React.useEffect(() => {
+  //   if (!playing) {
+  //     updateData({
+  //       curVidTime: state.playedSeconds,
+  //     })
+  //   }
+  // }, [playing])
+
   React.useEffect(() => {
-    // Add event listener when the component mounts
     document.addEventListener('keydown', handleSpaceKeyPress)
 
-    // Clean up the event listener when the component unmounts
     return () => {
       document.removeEventListener('keydown', handleSpaceKeyPress)
     }
@@ -115,7 +140,10 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
 
   return (
     <div className="relative">
-      <div className="pt-[56.25%] relative" onMouseDown={togglePlayPause}>
+      <div
+        className="pt-[56.25%] relative"
+        onMouseDown={() => togglePlayPause()}
+      >
         <ReactPlayer
           ref={playerRef}
           style={{ position: 'absolute', top: 0, left: 0 }}
@@ -132,9 +160,10 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
             },
           }}
           light={state.light}
-          playing={state.playing}
+          playing={playing}
           muted={state.muted}
           onProgress={handleProgress}
+          onReady={onReady}
           onPlay={() => {
             handlePlay()
           }}
@@ -142,7 +171,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
             handlePause()
           }}
           onDuration={handleDuration}
-          //   onSeek={e => console.log('onSeek', e)}
+          onSeek={e => console.log('onSeek', e)}
         />
       </div>
 

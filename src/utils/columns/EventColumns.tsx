@@ -1,3 +1,4 @@
+import { formatDurations } from 'components/player/Duration'
 import { TableColumn } from 'models/common'
 
 export const eventColumns: readonly TableColumn<any>[] = [
@@ -17,6 +18,7 @@ export const eventColumns: readonly TableColumn<any>[] = [
     label: 'Timestamp',
     minWidth: 85,
     align: 'center',
+    format: (val: number) => formatDurations(val, true),
   },
   {
     id: 'event',

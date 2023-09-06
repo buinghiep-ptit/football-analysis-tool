@@ -4,6 +4,8 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { CssBaseline, StyledEngineProvider } from '@mui/material'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -11,6 +13,7 @@ root.render(
     <StyledEngineProvider injectFirst>
       <CssBaseline />
       <App />
+      <ToastContainer autoClose={3000} />
     </StyledEngineProvider>
   </React.StrictMode>,
 )

@@ -9,7 +9,7 @@ export const Events = () => {
 
   const scale = useAppStore(state => state.scale)
   return (
-    <div className="bg-neutral-8 overflow-hidden">
+    <div className="bg-neutral-8 overflow-hidden flex-grow">
       <div className="flex flex-col w-[100%] h-[100%] relative">
         <TabsEvent currentTab={currentTab} setCurrentTab={setCurrentTab} />
         {currentTab === 1 && <ButtonsEvent />}
@@ -18,7 +18,7 @@ export const Events = () => {
           <>
             <RecordsEvent />
             <div
-              className=" absolute bottom-0 left-0 w-full h-[36px]"
+              className="absolute bottom-0 left-0 w-full h-[36px]"
               style={{
                 background:
                   'linear-gradient(180deg, rgba(52, 58, 64, 0.00) 0%, #343A40 100%)',

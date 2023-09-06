@@ -81,6 +81,8 @@ const ButtonsEvent = () => {
   const scale = useAppStore(state => state.scale)
   const currentKey = useAppStore(state => state.currentKey)
   const updateKey = useAppStore(state => state.updateKey)
+  const updateData = useAppStore(state => state.updateData)
+  const pauseVid = useAppStore(state => state.pauseVid)
 
   useEffect(() => {
     if (currentKey) {
@@ -97,6 +99,7 @@ const ButtonsEvent = () => {
     setActiveIdx(index)
     const activeKey = listEventKey[index].key
     updateKey(activeKey)
+    pauseVid()
   }
 
   const handleKeyDown = (event: any) => {
@@ -107,6 +110,7 @@ const ButtonsEvent = () => {
     if (currentButtonIndex !== -1) {
       setActiveIdx(currentButtonIndex)
       updateKey(key)
+      updateData({ eventName: listEventKey[currentButtonIndex].title })
     }
   }
 
@@ -119,10 +123,10 @@ const ButtonsEvent = () => {
   }, [])
 
   return (
-    <div className="overflow-auto" style={{ margin: `${16 * scale}px` }}>
+    <div className="overflow-auto" style={{ margin: `${16 * scale}px 0` }}>
       <div
         className=" grid grid-cols-4 h-[100%]"
-        style={{ gap: `${16 * scale}px` }}
+        style={{ gap: `${16 * scale}px`, margin: `0 ${16 * scale}px` }}
       >
         {listEventKey.map((event, index) => (
           <div

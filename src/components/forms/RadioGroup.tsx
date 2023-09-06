@@ -18,6 +18,7 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
   } = useFormContext()
   const error = errors[name]?.message as string | undefined
   const scale = useAppStore(state => state.scale)
+  const updateData = useAppStore(state => state.updateData)
 
   return (
     <div>
@@ -46,7 +47,10 @@ export function RadioGroup({ name, options, col = 4 }: IRadioGroupProps) {
                   {...field}
                   value={option.value}
                   checked={field.value === option.value}
-                  onChange={e => field.onChange(e.target.value)}
+                  onChange={e => {
+                    field.onChange(e.target.value)
+                    updateData({ [name]: e.target.value })
+                  }}
                   className="radio"
                   style={{ transform: `scale(${scale})` }}
                 />

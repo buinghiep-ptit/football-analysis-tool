@@ -1,8 +1,10 @@
+import { formatDurations } from 'components/player/Duration'
 import React from 'react'
 import { useAppStore } from 'store'
 
 export const TimeRow = () => {
   const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
 
   return (
     <div className="flex flex-row" style={{ gap: `${32 * scale}px` }}>
@@ -17,7 +19,7 @@ export const TimeRow = () => {
           className="w-[55%] text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
         >
-          00:01:00
+          {formatDurations(data.curVidTime ?? 0)}
         </span>
       </div>
       <div className="flex flex-grow" style={{ gap: `${12 * scale}px` }}>
@@ -31,7 +33,7 @@ export const TimeRow = () => {
           className="flex-grow text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
         >
-          00:01:00
+          {formatDurations(data.curVidTime ?? 0)}
         </span>
       </div>
     </div>

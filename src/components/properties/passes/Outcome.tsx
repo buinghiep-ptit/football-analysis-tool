@@ -1,14 +1,7 @@
 import { RadioGroup } from 'components/forms/RadioGroup'
 import React from 'react'
 import { useAppStore } from 'store'
-
-const outcome = [
-  { value: '1', name: 'Incomplete' },
-  { value: '2', name: 'Out' },
-  { value: '3', name: 'Pass offside' },
-  { value: '4', name: 'Unknow' },
-  { value: '5', name: 'Injuri clearance' },
-]
+import { OUTCOME } from 'utils/common'
 
 export const Outcome = () => {
   const scale = useAppStore(state => state.scale)
@@ -25,7 +18,7 @@ export const Outcome = () => {
         className="w-[100%] flex flex-col"
         style={{ gap: `${16 * scale}px` }}
       >
-        <RadioGroup name="outcome" options={outcome} col={3} />
+        <RadioGroup name="outcome" options={OUTCOME} col={3} />
       </div>
     </div>
   )

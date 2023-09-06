@@ -8,11 +8,30 @@ export const useAppStore = create(
       scale: 1,
       updateScale: newScale => set(() => ({ scale: newScale })),
       togglePlaying: () => set(state => ({ playing: !state.playing })),
-      currentKey: '1',
+      pauseVid: () => set(() => ({ playing: false })),
+      currentKey: '',
       updateKey: newKey => set(() => ({ currentKey: newKey })),
       data: {},
-      updateData: newData =>
-        set(state => ({ data: { ...state.data, ...newData } })),
+      updateData: (newData, isReplace) =>
+        set(state => ({
+          data: isReplace ? newData : { ...state.data, ...newData },
+        })),
+      removeData: () => set(() => ({ data: {} })),
+      records: [],
+      addRecord: record =>
+        set(state => ({ records: [...state.records, record] })),
+      removeRecord: recordId =>
+        set(state => ({
+          records: [...state.records].filter(r => r.id !== recordId),
+        })),
+      editRecord: record =>
+        set(state => {
+          const idx = [...state.records].findIndex(r => r.id === record.id)
+          const newRecords = [...state.records]
+          if (idx !== -1) newRecords[idx] = record
+
+          return { records: newRecords }
+        }),
     }),
     {
       name: 'fb-analysis',

@@ -3,6 +3,7 @@ import { useAppStore } from 'store'
 
 export const Players = () => {
   const scale = useAppStore(state => state.scale)
+  const data = useAppStore(state => state.data)
 
   return (
     <div className="flex flex-row" style={{ gap: `${32 * scale}px` }}>
@@ -17,7 +18,7 @@ export const Players = () => {
           className="w-[55%] text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
         >
-          John Cley
+          {data?.listActivePlayer?.[0]?.name}
         </span>
       </div>
       <div className="flex flex-grow" style={{ gap: `${12 * scale}px` }}>
@@ -31,7 +32,7 @@ export const Players = () => {
           className="flex-grow text-neutral-0"
           style={{ fontSize: `${14 * scale}px` }}
         >
-          Quang Hải
+          {data?.listActivePlayer?.[1]?.name}
         </span>
       </div>
     </div>
