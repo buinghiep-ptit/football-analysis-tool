@@ -82,7 +82,9 @@ const extractRecords = (records: any) => {
     teamName: r.teamName,
     playerName: r.listActivePlayer?.[0]?.name,
     passReceipt: r.listActivePlayer?.[1]?.name,
-    location: `${r.startLocation.x},${r.startLocation.y}`,
+    location: r.startLocation
+      ? `${r.startLocation?.x},${r.startLocation?.y}`
+      : '',
     endLocation: '',
     outcome: OUTCOME.find(o => o.value == r.outcome)?.name,
     inprogress: r.status === 1 ? false : true,
@@ -115,7 +117,7 @@ export const RecordsEvent = () => {
   return (
     <div
       className="overflow-auto"
-      style={{ padding: `0 ${16 * scale}px`, height: '100%' }}
+      style={{ padding: `0 ${0 * scale}px`, height: '100%' }}
     >
       <MuiTable
         rows={extractRecords(records ?? [])}

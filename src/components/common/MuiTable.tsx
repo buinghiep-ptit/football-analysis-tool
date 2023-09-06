@@ -178,13 +178,13 @@ export default function MuiTable<T extends Record<string, any>>({
                       maxWidth: (column.maxWidth || 0) * scale ?? null,
                       width: (column.width || 0) * scale ?? null,
                       px: 1 * scale,
-                      pr: idx === columns.length - 1 ? 0 : 1 * scale,
+                      pr: idx === columns.length - 1 ? 2 * scale : 1 * scale,
                       py: 1.5 * scale,
                       bgcolor: '#343A40',
                       ...column.sticky,
                     }}
                   >
-                    {column.label}
+                    <span>{column.label}</span>
                   </StyledTableCell>
                 ))}
               </TableRow>
@@ -231,8 +231,11 @@ export default function MuiTable<T extends Record<string, any>>({
                             maxWidth: (column.maxWidth || 0) * scale ?? null,
                             width: (column.width || 0) * scale ?? null,
                             px: 1 * scale,
-                            pl: idx === 0 ? 0 : 1 * scale,
-                            pr: idx === columns.length - 1 ? 0 : 1 * scale,
+                            pl: idx === 0 ? 2 * scale : 1 * scale,
+                            pr:
+                              idx === columns.length - 1
+                                ? 2 * scale
+                                : 1 * scale,
                             py: 1.5 * scale,
                             cursor:
                               column.action || column.link
@@ -241,107 +244,118 @@ export default function MuiTable<T extends Record<string, any>>({
                             zIndex: 1,
                           }}
                         >
-                          {column.id === 'actions' ? (
-                            <Stack
-                              flexDirection={'row'}
-                              justifyContent="left"
-                              gap={1.25 * scale}
-                            >
-                              {actions.map((action, index) => {
-                                if (action.type) {
-                                  return (
-                                    <Tooltip
-                                      key={index}
-                                      arrow
-                                      title={
-                                        row.isLinked
-                                          ? !isItemSelected
-                                            ? 'Bỏ thêm'
-                                            : 'Thêm'
-                                          : !isItemSelected
-                                          ? 'Thêm'
-                                          : 'Bỏ thêm'
-                                      }
-                                    >
-                                      <IconButton
-                                        size="small"
-                                        onClick={event =>
-                                          handleClick(event, row)
-                                        }
-                                      >
-                                        <Icon
-                                          color={
-                                            row.isLinked
-                                              ? !isItemSelected
-                                                ? 'error'
-                                                : 'primary'
-                                              : !isItemSelected
-                                              ? 'primary'
-                                              : 'error'
-                                          }
-                                        >
-                                          {row.isLinked
-                                            ? !isItemSelected
-                                              ? 'remove_circle_outlined'
-                                              : 'add_circle_outlined'
-                                            : !isItemSelected
-                                            ? 'add_circle_outlined'
-                                            : 'remove_circle_outlined'}
-                                        </Icon>
-                                      </IconButton>
-                                    </Tooltip>
-                                  )
-                                } else if (
-                                  action.disableActions &&
-                                  action.disableActions(
-                                    row[action?.disableKey ?? 'status'],
-                                  )
-                                ) {
-                                  if (action?.contrastIcon?.icon) {
+                          <span
+                            className=""
+                            style={{
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              display: '-webkit-box',
+                              WebkitLineClamp: '1',
+                              WebkitBoxOrient: 'vertical',
+                            }}
+                          >
+                            {column.id === 'actions' ? (
+                              <Stack
+                                flexDirection={'row'}
+                                justifyContent="left"
+                                gap={1.25 * scale}
+                              >
+                                {actions.map((action, index) => {
+                                  if (action.type) {
                                     return (
                                       <Tooltip
                                         key={index}
                                         arrow
                                         title={
-                                          action.contrastIcon.tooltip ?? ''
+                                          row.isLinked
+                                            ? !isItemSelected
+                                              ? 'Bỏ thêm'
+                                              : 'Thêm'
+                                            : !isItemSelected
+                                            ? 'Thêm'
+                                            : 'Bỏ thêm'
                                         }
                                       >
                                         <IconButton
-                                          sx={{ padding: 0 }}
-                                          onClick={() =>
-                                            action.onClick &&
-                                            action.onClick(column, row)
+                                          size="small"
+                                          onClick={event =>
+                                            handleClick(event, row)
                                           }
                                         >
-                                          {action?.contrastIcon?.icon}
+                                          <Icon
+                                            color={
+                                              row.isLinked
+                                                ? !isItemSelected
+                                                  ? 'error'
+                                                  : 'primary'
+                                                : !isItemSelected
+                                                ? 'primary'
+                                                : 'error'
+                                            }
+                                          >
+                                            {row.isLinked
+                                              ? !isItemSelected
+                                                ? 'remove_circle_outlined'
+                                                : 'add_circle_outlined'
+                                              : !isItemSelected
+                                              ? 'add_circle_outlined'
+                                              : 'remove_circle_outlined'}
+                                          </Icon>
                                         </IconButton>
                                       </Tooltip>
                                     )
+                                  } else if (
+                                    action.disableActions &&
+                                    action.disableActions(
+                                      row[action?.disableKey ?? 'status'],
+                                    )
+                                  ) {
+                                    if (action?.contrastIcon?.icon) {
+                                      return (
+                                        <Tooltip
+                                          key={index}
+                                          arrow
+                                          title={
+                                            action.contrastIcon.tooltip ?? ''
+                                          }
+                                        >
+                                          <IconButton
+                                            sx={{ padding: 0 }}
+                                            onClick={() =>
+                                              action.onClick &&
+                                              action.onClick(column, row)
+                                            }
+                                          >
+                                            {action?.contrastIcon?.icon}
+                                          </IconButton>
+                                        </Tooltip>
+                                      )
+                                    }
+                                    return <Icon key={index}></Icon>
                                   }
-                                  return <Icon key={index}></Icon>
-                                }
-                                return (
-                                  <Tooltip
-                                    key={index}
-                                    arrow
-                                    title={action.tooltip}
-                                  >
-                                    <IconButton
-                                      sx={{ padding: 0 }}
-                                      onClick={() =>
-                                        action.onClick &&
-                                        action.onClick(column, row)
-                                      }
+                                  return (
+                                    <Tooltip
+                                      key={index}
+                                      arrow
+                                      title={action.tooltip}
                                     >
-                                      {action?.icon}
-                                    </IconButton>
-                                  </Tooltip>
-                                )
-                              })}
-                            </Stack>
-                          ) : (
-                            cellFormatter(column, row, value)
-                          )}
+                                      <IconButton
+                                        sx={{ padding: 0 }}
+                                        onClick={() =>
+                                          action.onClick &&
+                                          action.onClick(column, row)
+                                        }
+                                      >
+                                        {action?.icon}
+                                      </IconButton>
+                                    </Tooltip>
+                                  )
+                                })}
+                              </Stack>
+                            ) : (
+                              cellFormatter(column, row, value)
+                            )}
+                          </span>
                         </StyledTableCell>
                       )
                     })}

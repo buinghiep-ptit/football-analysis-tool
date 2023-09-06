@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAppStore } from 'store'
+import { LIST_KEY } from 'utils/common'
 
 export const Button = ({
   title,
@@ -50,77 +51,29 @@ export const Button = ({
   )
 }
 
-const listEventKey = [
-  { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs', key: '' },
-  {
-    title: 'Tactical Shift (T)',
-    subtile: 'Đổi chiến thuật',
-    value: 'ts',
-    key: 't',
-  },
-  { title: 'Substitution (0)', subtile: 'Thay người', value: 'ss', key: '0' },
-  { title: 'Half End', subtile: 'Kết thúc hiệp', value: 'he' },
-  { title: 'Pass (1)', subtile: 'Kiểm soát bóng', value: 'p', key: '1' },
-  { title: 'Carries (2)', subtile: 'Kiểm soát bóng', value: 'c', key: '2' },
-  { title: 'Shot (3)', subtile: 'sút', value: 's', key: '3' },
-  { title: 'Error (2)', subtile: 'Lỗi cá nhân', value: 'err' },
-  { title: 'Defensive term (6)', subtile: 'Tranh chấp', value: 'dt' },
-  { title: 'Goalkeeper (4)', subtile: 'Thủ môn', value: 'gk' },
-  { title: 'Foul (3)', subtile: 'Phạm lỗi', value: 'f' },
-  { title: 'Others (3)', subtile: 'Khác', value: 'o' },
-  { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
-  { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
-  { title: 'Half Start', subtile: 'Bắt đầu hiệp', value: 'hs' },
-  // { title: 'Hoàn thành', subtile: '', value: 'enter' },
-  // { title: 'Để sau', subtile: '', value: 'shift' },
-  // { title: 'Hủy', subtile: '', value: 'escape' },
-]
-
 const ButtonsEvent = () => {
   const [activeIdx, setActiveIdx] = useState(-1)
   const scale = useAppStore(state => state.scale)
   const currentKey = useAppStore(state => state.currentKey)
   const updateKey = useAppStore(state => state.updateKey)
-  const updateData = useAppStore(state => state.updateData)
   const pauseVid = useAppStore(state => state.pauseVid)
 
   useEffect(() => {
     if (currentKey) {
-      const currentButtonIndex = listEventKey.findIndex(
+      const currentButtonIndex = LIST_KEY.findIndex(
         b => b.key && b.key === currentKey,
       )
       if (currentButtonIndex !== -1) {
         setActiveIdx(currentButtonIndex)
       }
     }
-  }, [])
+  }, [currentKey])
 
   const handleMouseDown = (index: number) => {
-    setActiveIdx(index)
-    const activeKey = listEventKey[index].key
+    const activeKey = LIST_KEY[index].key
     updateKey(activeKey)
     pauseVid()
   }
-
-  const handleKeyDown = (event: any) => {
-    const key = event.key.toLowerCase()
-    const currentButtonIndex = listEventKey.findIndex(
-      b => b.key && b.key === key,
-    )
-    if (currentButtonIndex !== -1) {
-      setActiveIdx(currentButtonIndex)
-      updateKey(key)
-      updateData({ eventName: listEventKey[currentButtonIndex].title })
-    }
-  }
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown)
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [])
 
   return (
     <div className="overflow-auto" style={{ margin: `${16 * scale}px 0` }}>
@@ -128,7 +81,7 @@ const ButtonsEvent = () => {
         className=" grid grid-cols-4 h-[100%]"
         style={{ gap: `${16 * scale}px`, margin: `0 ${16 * scale}px` }}
       >
-        {listEventKey.map((event, index) => (
+        {LIST_KEY.map((event, index) => (
           <div
             key={index}
             className="col-span-1"

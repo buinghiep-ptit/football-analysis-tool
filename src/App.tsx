@@ -8,7 +8,7 @@ import { IPlayer } from 'models'
 import * as React from 'react'
 import { useAppStore } from 'store'
 import './App.css'
-import { uniqueId } from 'utils/common'
+import { LIST_KEY, uniqueId } from 'utils/common'
 import { toast } from 'react-toastify'
 const ASPECT_RATIO = 1872 / 946
 
@@ -58,12 +58,13 @@ function App() {
   const [isTall, setIsTall] = React.useState(false)
   const scale = useAppStore(state => state.scale)
   const updateScale = useAppStore(state => state.updateScale)
-  const data = useAppStore(state => state.data)
   const playing = useAppStore(state => state.playing)
+  const data = useAppStore(state => state.data)
   const updateData = useAppStore(state => state.updateData)
+  const removeData = useAppStore(state => state.removeData)
   const addRecord = useAppStore(state => state.addRecord)
   const editRecord = useAppStore(state => state.editRecord)
-  const removeData = useAppStore(state => state.removeData)
+  const updateKey = useAppStore(state => state.updateKey)
 
   React.useEffect(() => {
     const container = document.getElementById('container') as any
@@ -94,21 +95,57 @@ function App() {
     }
   }, [])
 
-  const cancelEvent = () => {}
+  const cancelEvent = () => {
+    if (!data.id) {
+      removeData()
+      toast.error('Đã hủy')
+    }
+  }
 
   const latterEvent = () => {
-    addRecord({ ...data, status: 0, id: uniqueId() })
+    if (data.id) {
+      editRecord({ ...data, status: 0 })
+    } else {
+      addRecord({ ...data, status: 0, id: uniqueId() })
+      removeData()
+    }
     toast.warning('Đã lưu')
-    removeData()
   }
 
   const finishEvent = () => {
     if (data.id) {
-      editRecord(data)
-    } else addRecord({ ...data, status: 1, id: uniqueId() })
-    removeData()
+      editRecord({ ...data, status: 1 })
+    } else {
+      addRecord({ ...data, status: 1, id: uniqueId() })
+      removeData()
+    }
     toast.success('Đã hoàn tất')
   }
+
+  const handleKeyDown = (event: any) => {
+    const key = event.key.toLowerCase()
+    if (key === 'escape') {
+      cancelEvent()
+    } else if (key === 'shift') {
+      latterEvent()
+    } else if (key === 'enter') {
+      finishEvent()
+    } else {
+      const currentButtonIndex = LIST_KEY.findIndex(b => b.key && b.key === key)
+      if (currentButtonIndex !== -1) {
+        updateKey(key)
+        updateData({ eventName: LIST_KEY[currentButtonIndex].title })
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [data])
 
   return (
     <div

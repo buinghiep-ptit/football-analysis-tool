@@ -108,7 +108,6 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
   }
 
   const handleSpaceKeyPress = (event: any) => {
-    console.log(event.key)
     if (event.key === ' ' || event.key === '1') {
       togglePlayPause(event.key === '1' ? true : false)
     }

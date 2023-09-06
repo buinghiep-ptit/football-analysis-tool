@@ -62,3 +62,7 @@
 span {
   white-space: nowrap;
 }
+
+body {
+  font-family: Inter !important;
+}

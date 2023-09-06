@@ -5,13 +5,17 @@ export const eventColumns: readonly TableColumn<any>[] = [
   {
     id: 'actions',
     label: '',
-    minWidth: 85,
+    minWidth: 100,
     align: 'left',
-    sticky: {
-      position: 'sticky',
-      left: 0,
-      zIndex: 9,
-    },
+    // sticky: {
+    //   position: 'sticky',
+    //   left: 0,
+    //   zIndex: 9,
+    //   bgcolor: '#343A40',
+    //   '&:hover': {
+    //     bgcolor: '#292E33',
+    //   },
+    // },
   },
   {
     id: 'timestamp',
