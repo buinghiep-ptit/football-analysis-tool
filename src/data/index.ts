@@ -120,7 +120,7 @@ export const lineUp2: ILineUp = {
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '01',
-      name: 'Đ.V. Hậu',
+      name: 'Q.V. Chuẩn',
       teamId: 2,
     },
     {
@@ -129,7 +129,7 @@ export const lineUp2: ILineUp = {
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '02',
-      name: 'Đ.V. Hậu',
+      name: 'Đ.D. Mạnh',
       teamId: 2,
     },
     {
@@ -138,7 +138,7 @@ export const lineUp2: ILineUp = {
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '03',
-      name: 'Đ.V. Hậu',
+      name: 'B.H.V. Anh',
       teamId: 2,
     },
     {
@@ -147,7 +147,7 @@ export const lineUp2: ILineUp = {
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '04',
-      name: 'Đ.V. Hậu',
+      name: 'V.T. Long',
       teamId: 2,
     },
     {
@@ -156,7 +156,7 @@ export const lineUp2: ILineUp = {
       left: '15%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '05',
-      name: 'Đ.V. Hậu',
+      name: 'N.T. Chung',
       teamId: 2,
     },
     {
@@ -165,7 +165,7 @@ export const lineUp2: ILineUp = {
       left: '85%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '06',
-      name: 'Đ.V. Hậu',
+      name: 'N.T. Thành',
       teamId: 2,
     },
     {
@@ -174,7 +174,7 @@ export const lineUp2: ILineUp = {
       left: '30%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '07',
-      name: 'Đ.V. Hậu',
+      name: 'Đ.H. Dũng',
       teamId: 2,
     },
     {
@@ -183,7 +183,7 @@ export const lineUp2: ILineUp = {
       left: '70%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '08',
-      name: 'Đ.V. Hậu',
+      name: 'T.V.T. Quý',
       teamId: 2,
     },
     {
@@ -192,7 +192,7 @@ export const lineUp2: ILineUp = {
       left: '20%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '09',
-      name: 'Đ.V. Hậu',
+      name: 'T.V. Đạt',
       teamId: 2,
     },
     {
@@ -201,7 +201,7 @@ export const lineUp2: ILineUp = {
       left: '80%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '10',
-      name: 'Đ.V. Hậu',
+      name: 'N.V. Tùng',
       teamId: 2,
     },
     {
@@ -210,7 +210,7 @@ export const lineUp2: ILineUp = {
       left: '50%',
       imgUrl: '/assets/images/shirt-white.svg',
       jerseyNo: '11',
-      name: 'Đ.V. Hậu',
+      name: 'M. Mirlan',
       teamId: 2,
     },
   ],
