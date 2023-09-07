@@ -68,7 +68,6 @@ const ButtonsEvent = () => {
     } else {
       setActiveIdx(-1)
     }
-    console.log('data?.currentKey:', data?.currentKey)
   }, [data])
 
   const handleMouseDown = (index: number) => {

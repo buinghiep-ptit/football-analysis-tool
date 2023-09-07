@@ -174,7 +174,7 @@ function App() {
             className="flex flex-col w-[57.265%] h-[100%] gap-1"
             style={{
               paddingLeft: `${20 * scale}px`,
-              pointerEvents: playing ? 'none' : 'inherit',
+              pointerEvents: !data.currentKey || playing ? 'none' : 'inherit',
             }}
           >
             <div

@@ -40,6 +40,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
     if (!isReady && data.curVidTime) {
       const timeToStart = data.curVidTime ?? 0
       playerRef.current.seekTo(timeToStart, 'seconds')
+      pauseVid()
       setIsReady(true)
     }
   }, [isReady])
@@ -48,6 +49,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
     if (data.id) {
       const timeToStart = data.curVidTime
       playerRef.current.seekTo(timeToStart, 'seconds')
+      pauseVid()
     }
   }, [data])
 
@@ -179,7 +181,7 @@ export function VideoPlayer({ url }: IVideoPlayerProps) {
             handlePause()
           }}
           onDuration={handleDuration}
-          onSeek={e => console.log('onSeek', e)}
+          // onSeek={e => console.log('onSeek', e)}
         />
       </div>
 

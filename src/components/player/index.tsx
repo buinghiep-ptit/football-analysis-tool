@@ -8,7 +8,7 @@ export const Player = () => {
   return (
     <div className="video bg-neutral-8">
       <div style={{ marginBottom: `${12 * scale}px` }}>
-        <VideoPlayer url="https://dev09-minio.campdi.vn/camping/Feed/campdi_1671434874002_Pexels_Videos_2169880.mp4" />
+        <VideoPlayer url="/assets/videos/video.mp4" />
       </div>
       <div className=" bg-neutral-9 h-[1px] rounded-full"></div>
       <div
