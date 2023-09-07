@@ -183,24 +183,24 @@ function App() {
             >
               <div className="w-[52.25%]">
                 <div className="flex flex-row bg-neutral-9">
-                  <div className="flex-1" onMouseDown={() => {}}>
-                    <LineUp
-                      lineUp={lineUp1}
-                      listActivePlayer={data?.listActivePlayer?.filter(
-                        (p: IPlayer) => p.teamId === lineUp1.teamId,
-                      )}
-                      updateData={updateData}
-                    />
-                  </div>
-                  <div className="flex-1" onMouseDown={() => {}}>
-                    <LineUp
-                      lineUp={lineUp2}
-                      listActivePlayer={data?.listActivePlayer?.filter(
-                        (p: IPlayer) => p.teamId === lineUp2.teamId,
-                      )}
-                      updateData={updateData}
-                    />
-                  </div>
+                  {/* <div className="flex-1" onMouseDown={() => {}}> */}
+                  <LineUp
+                    lineUp={lineUp1}
+                    listActivePlayer={data?.listActivePlayer?.filter(
+                      (p: IPlayer) => p.teamId === lineUp1.teamId,
+                    )}
+                    updateData={updateData}
+                  />
+                  {/* </div> */}
+                  {/* <div className="flex-1" onMouseDown={() => {}}> */}
+                  <LineUp
+                    lineUp={lineUp2}
+                    listActivePlayer={data?.listActivePlayer?.filter(
+                      (p: IPlayer) => p.teamId === lineUp2.teamId,
+                    )}
+                    updateData={updateData}
+                  />
+                  {/* </div> */}
                 </div>
               </div>
               <div className="w-[47.75%]">
