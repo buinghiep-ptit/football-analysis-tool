@@ -183,7 +183,7 @@ function App() {
             >
               <div className="w-[52.25%]">
                 <div className="flex flex-row bg-neutral-9">
-                  <div onMouseDown={() => {}}>
+                  <div className="flex-1" onMouseDown={() => {}}>
                     <LineUp
                       lineUp={lineUp1}
                       listActivePlayer={data?.listActivePlayer?.filter(
@@ -192,7 +192,7 @@ function App() {
                       updateData={updateData}
                     />
                   </div>
-                  <div onMouseDown={() => {}}>
+                  <div className="flex-1" onMouseDown={() => {}}>
                     <LineUp
                       lineUp={lineUp2}
                       listActivePlayer={data?.listActivePlayer?.filter(
