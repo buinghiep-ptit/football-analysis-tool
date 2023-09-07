@@ -12,16 +12,16 @@ const CoordinatesPlayer = () => {
   const updateData = useAppStore(state => state.updateData)
 
   useEffect(() => {
-    const pWidth = parentRef.current.offsetHeight
-    const pHeight = parentRef.current.offsetWidth
+    const pWidth = parentRef.current.offsetWidth
+    const pHeight = parentRef.current.offsetHeight
     setParentWidth(pWidth)
     setParentHeight(pHeight)
   }, [])
 
   useEffect(() => {
     const handleResize = () => {
-      const pWidth = parentRef.current.offsetHeight
-      const pHeight = parentRef.current.offsetWidth
+      const pWidth = parentRef.current.offsetWidth
+      const pHeight = parentRef.current.offsetHeight
       setParentWidth(pWidth)
       setParentHeight(pHeight)
     }
