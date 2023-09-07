@@ -18,6 +18,21 @@ const CoordinatesPlayer = () => {
     setParentHeight(pHeight)
   }, [])
 
+  useEffect(() => {
+    const handleResize = () => {
+      const pWidth = parentRef.current.offsetHeight
+      const pHeight = parentRef.current.offsetWidth
+      setParentWidth(pWidth)
+      setParentHeight(pHeight)
+    }
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  console.log(parentWidth, parentHeight)
   const handleMouseMove = (event: any) => {
     if (parentRef.current) {
       // const pWidth = parentRef.current.offsetHeight
