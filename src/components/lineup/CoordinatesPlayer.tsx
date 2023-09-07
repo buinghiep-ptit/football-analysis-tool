@@ -32,7 +32,6 @@ const CoordinatesPlayer = () => {
     }
   }, [])
 
-  console.log(parentWidth, parentHeight)
   const handleMouseMove = (event: any) => {
     if (parentRef.current) {
       // const pWidth = parentRef.current.offsetHeight

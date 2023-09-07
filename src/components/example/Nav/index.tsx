@@ -35,7 +35,7 @@ const Index = () => {
     <nav className="col-span-1 bg-cyan-200">
       <div className="flex mx-4 justify-between items-center md:block">
         <h4 className="uppercase font-bold text-primary py-4 border-b border-primary text-right">
-          Phimmoi.net
+          Football analysis tool
         </h4>
         <BiMenu
           className="cursor-pointer md:hidden"
